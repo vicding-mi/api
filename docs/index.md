@@ -14,4 +14,4 @@ A SKG-IF compliant SKG should provide an implementation of endpoint managing req
    * The parameter `schema` is one from the list returned by the `list_schemes` request above.
    * The parameter `id` is the identifier that we are asking a SKG-IF representation.
 
-For example, `https://my.skg.io/search/orcid:0000-1111-2222-3333`.
+For example, `https://my.skg.io/resolve/orcid:0000-1111-2222-3333`.
