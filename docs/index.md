@@ -8,10 +8,12 @@ For the time being, the easiest way we conceived is about exchanging data by eng
 
 A SKG-IF compliant SKG should provide an implementation of endpoint managing requests as follows
 
-- `https://my.skg.io/list_schemes` which provides a comprehensive JSON list of the ids and PIDs schemes that the API is willing to resolve. The scheme `local` refers to ids that are valid locally in the SKG at hand, and should always be present (e.g., `['local', 'doi', 'orcid', 'handle', 'cordis', 'openalex']`).
-- `https://my.skg.io/resolve/<schema>:<id>` which resolves a couple `<schema, id>` and returns its SKG-IF representation.
-   
+- `GET https://my.skg.io/list_schemes` which provides a comprehensive JSON list of the ids and PIDs schemes that the API is willing to resolve. The scheme `local` refers to ids that are valid locally in the SKG at hand, and should always be present (e.g., `['local', 'doi', 'orcid', 'handle', 'cordis', 'openalex']`).
+- `GET https://my.skg.io/resolve/<schema>:<id>` which resolves a couple `<schema, id>` and returns the SKG-IF representation of the relevant object.
    * The parameter `schema` is one from the list returned by the `list_schemes` request above.
-   * The parameter `id` is the identifier that we are asking a SKG-IF representation.
+   * The parameter `id` is the identifier of which we are asking an SKG-IF representation.
+   
+   For example, `https://my.skg.io/resolve/orcid:0000-1111-2222-3333`.
+- `POST https://my.skg.io/resolve` which works as the method above, while passing a list of couples `<schema, id>` to be resolved in the body of the request.
 
-For example, `https://my.skg.io/resolve/orcid:0000-1111-2222-3333`.
+[SKG-IF extensions](https://skg-if.github.io/extensions/) can futher extend these methods by including HTTP parameters whose implementation is left open.
