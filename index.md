@@ -1,5 +1,10 @@
-# API specifications
+---
+title: API
+layout: default
+nav_order: 3
+---
 
+# API specifications
 
 Our field work suggested that providing a full-fledged API would be not feasible at this stage, as it requires extensive discussions that can be hardly met within the WG deadlines. 
 In the future, we will explore its feasibility via a dedicated RDA WG.
