@@ -1,10 +1,10 @@
 ---
-title: API
+title: SKG-IF API Specification
 layout: default
-nav_order: 7
+nav_order: 8
 ---
 
-# API specifications
+# SKG-IF API Specifications
 
 Our field work suggested that providing a full-fledged API would be not feasible at this stage, as it requires extensive discussions that can be hardly met within the WG deadlines. 
 In the future, we will explore its feasibility via a dedicated RDA WG.
