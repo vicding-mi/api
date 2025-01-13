@@ -1,5 +1,5 @@
 ---
-title: SKG-IF API Specification
+title: API Specification
 layout: default
 nav_order: 8
 ---
