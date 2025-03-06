@@ -20,4 +20,4 @@ A SKG-IF compliant SKG should provide an implementation of endpoint managing req
    For example, `https://my.skg.io/resolve/orcid:0000-1111-2222-3333`.
 - `POST https://my.skg.io/resolve` which works as the method above, while passing a list of couples `<schema, id>` to be resolved in the body of the request.
 
-[SKG-IF extensions]({% link extensions/index.md %}) can futher extend these methods by including HTTP parameters whose implementation is left open.
+[SKG-IF extensions]({% link extensions/index.md %}) can further extend these methods by including HTTP parameters whose implementation is left open.
