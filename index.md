@@ -1,7 +1,7 @@
 ---
 title: API Specification
 layout: default
-nav_order: 8
+nav_order: 7
 ---
 
 # API Specifications
