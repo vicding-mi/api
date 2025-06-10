@@ -41,28 +41,3 @@ jobs:
         run: |
           echo "Validating changed files..."
           python .github/scripts/validate_files.py
-
-#      - name: Run Docker Compose for ${{ matrix.file }}
-#        run: |
-#          echo "Running Docker Compose for ${{ matrix.file }}..."
-#          docker compose -f .docker-compose-validation.yml up -d
-#
-#      - name: Test if docker is ready for ${{ matrix.file }}
-#        run: |
-#          echo "Waiting for Docker containers to be ready for ${{ matrix.file }}..."
-#          while ! curl -s http://localhost:4010/ > /dev/null; do
-#            docker logs prism
-#            sleep 5
-#          done
-#          while ! curl -s http://localhost:8000/ > /dev/null; do
-#            docker logs fastapi
-#            sleep 5
-#          done
-#          echo "Docker containers are ready for ${{ matrix.file }}."
-#
-#      - name: Validate ${{ matrix.file }}
-#        run: |
-#          echo "Validating file: ${{ matrix.file }}"
-#          python .github/scripts/validate_files.py "${{ matrix.file }}"
-#        env:
-#          FILE_TO_VALIDATE: ${{ matrix.file }}
