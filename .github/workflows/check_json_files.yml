@@ -4,61 +4,65 @@ on:
   push:
     paths:
       - 'openapi/ver/**/*.json'
+  pull_request:
+    paths:
+      - 'openapi/ver/**/*.json'
 
 jobs:
-  validate_json:
+  fetch_changed_files:
     runs-on: ubuntu-latest
 
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.12'
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install httpx 
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install httpx
 
-    - name: Get changed files for push
-      run: |
-        CHANGED_FILES=$(git diff --name-only HEAD^ HEAD | tr '\n' ' ')
-        echo "CHANGED_FILES=$CHANGED_FILES" >> $GITHUB_ENV
-        echo "Changed files: $CHANGED_FILES"
+      - name: Get changed files for push
+        run: |
+          CHANGED_FILES=$(git diff --name-only HEAD^ HEAD | tr '\n' ' ')
+          echo "CHANGED_FILES=$CHANGED_FILES" >> $GITHUB_ENV
+          echo "Changed files: $CHANGED_FILES"
 
-    - name: Get openapi spec
-      run: |
-        echo "Fetching OpenAPI spec..."
-        # TODO: fetch from local repo and check the json files against the spec within the same root folder
-        curl -o skg-if-api.yaml https://gitlab.esrf.fr/smis/ostrails/-/raw/main/skg-if-api/skg-if-api.yaml
-        echo "OpenAPI spec fetched successfully."
+      - name: Validate changed files
+        run: |
+          echo "Validating changed files..."
+          python .github/scripts/validate_files.py
 
-    - name: Run Docker Compose
-      run: |
-        echo "Running Docker Compose..."
-        docker compose -f .docker-compose-validation.yml up -d
-
-    - name: Test if docker is ready
-      run: |
-        echo "Waiting for Docker containers to be ready..."
-        while ! curl -s http://localhost:4010/ > /dev/null; do
-        docker logs prism
-        sleep 5
-        done
-        while ! curl -s http://localhost:8000/ > /dev/null; do
-        docker logs fastapi
-        sleep 5
-        done
-        echo "Docker containers are ready."
-
-    - name: Validate files
-      run: |
-        echo "Validating the following files: $CHANGED_FILES"
-        python .github/scripts/validate_files.py
-      env:
-        CHANGED_FILES: ${{ env.CHANGED_FILES }}
+#      - name: Run Docker Compose for ${{ matrix.file }}
+#        run: |
+#          echo "Running Docker Compose for ${{ matrix.file }}..."
+#          docker compose -f .docker-compose-validation.yml up -d
+#
+#      - name: Test if docker is ready for ${{ matrix.file }}
+#        run: |
+#          echo "Waiting for Docker containers to be ready for ${{ matrix.file }}..."
+#          while ! curl -s http://localhost:4010/ > /dev/null; do
+#            docker logs prism
+#            sleep 5
+#          done
+#          while ! curl -s http://localhost:8000/ > /dev/null; do
+#            docker logs fastapi
+#            sleep 5
+#          done
+#          echo "Docker containers are ready for ${{ matrix.file }}."
+#
+#      - name: Validate ${{ matrix.file }}
+#        run: |
+#          echo "Validating file: ${{ matrix.file }}"
+#          python .github/scripts/validate_files.py "${{ matrix.file }}"
+#        env:
+#          FILE_TO_VALIDATE: ${{ matrix.file }}
