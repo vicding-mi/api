@@ -39,10 +39,10 @@ def validate_file(file_path):
 def main():
     """Main function to validate pushed files."""
     print(f"CHANGED_FILES: {CHANGED_FILES}")
-    # pushed_files = get_pushed_files()
-    # TODO: the pushed_files in the next line is for debugging only, it should be replaced with the line above
-    pushed_files = ["../../openapi/ver/current/sample_data/products/test.json",
-                   "../../openapi/ver/current/sample_data/products/test1.json"]
+    pushed_files = get_pushed_files()
+    # # TODO: the pushed_files in the next line is for debugging only, it should be replaced with the line above
+    # pushed_files = ["../../openapi/ver/current/sample_data/products/test.json",
+    #                "../../openapi/ver/current/sample_data/products/test1.json"]
     print(f"Pushed files: {pushed_files}")
     if not pushed_files:
         print("No JSON files to validate.")
