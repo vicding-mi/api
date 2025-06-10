@@ -4,6 +4,9 @@ on:
   push:
     paths:
       - 'openapi/ver/**/*.json'
+  pull_request:
+    paths:
+      - 'openapi/ver/**/*.json'
 
 jobs:
   validate_json:

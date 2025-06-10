@@ -1,8 +1,7 @@
-from fastapi import FastAPI, Query, Header, HTTPException
+from fastapi import FastAPI, Query
 from fastapi.responses import HTMLResponse, Response, JSONResponse
-from urllib.parse import urlparse, unquote, parse_qs
+from urllib.parse import parse_qs
 from dicttoxml import dicttoxml
-import random
 import requests
 import os
 import json
@@ -25,6 +24,8 @@ template_path = "./template_ostrails.json"
 processed_tools_folder = 'processed_jsonfiles_tools'
 processed_datasets_folder = 'processed_jsonfiles_datasets'
 basex_host = "basex-test"
+
+data_root = "/app/data"
 
 # Solr API
 dotenv.load_dotenv()
@@ -828,18 +829,20 @@ def create_response(data: dict | None, accept: str):
     else:
         return JSONResponse(content=data)
 
+
 @app.get("/", response_class=HTMLResponse)
 async def read_root():
-    return "<h1>Hello, World!</h1>"
+    return "<h1>Hello, World!</h1><p>Example: <a href='/products/test.json'>/products/test.json</a></p>"
 
 
 # @app.get("/validate/{file_path}")
-@app.get("/products/{file_path}")
-async def get_file(file_path: str, accept: str | None = Query(None)):
+@app.get("/{type_path}/{file_path}")
+async def get_file(type_path: str, file_path: str, accept: str | None = Query(None)):
+    logger.warning(f"type_path: {type_path}")
     logger.warning(f"original file_path: {file_path}")
     filename = os.path.basename(file_path)
     logger.warning(f"filename basename: {filename}")
-    file_path = os.path.join("/app/data", filename)
+    file_path = os.path.join(data_root, type_path, filename)
     logger.warning(f"file_path: {file_path}")
     accept_header = get_accept_header(accept)
     if os.path.isfile(file_path):
@@ -868,17 +871,29 @@ async def get_file(file_path: str, accept: str | None = Query(None)):
 #     return create_response(v, accept_header)
 
 
-@app.get("/products")
-async def get_products(accept: str | None = Query(None)):
-    global processed_files
+# @app.get("/products")
+# async def get_products(accept: str | None = Query(None)):
+#     global processed_files
+#     accept_header = get_accept_header(accept)
+#
+#     if len(processed_files) == 0:
+#         processed_files = load_files(processed_datasets_folder)
+#     k, v = next(iter(processed_files.items()))
+#     logger.error(f"Returning {k} - {v}")
+#
+#     return create_response({"accept": accept_header, "total": len(processed_files), k: v}, accept_header)
+
+
+@app.get("/{type_path}")
+async def get_items_per_type(type_path: str, accept: str | None = Query(None)):
+    """
+    Get all items of a specific type (datasets or tools).
+    """
     accept_header = get_accept_header(accept)
 
-    if len(processed_files) == 0:
-        processed_files = load_files(processed_datasets_folder)
-    k, v = next(iter(processed_files.items()))
-    logger.error(f"Returning {k} - {v}")
+    items = load_files(os.path.join(data_root, type_path))
 
-    return create_response({"accept": accept_header, "total": len(processed_files), k: v}, accept_header)
+    return create_response({"accept": accept_header, "total": len(items), "items": items}, accept_header)
 
 
 @app.get("/fetchall", response_class=HTMLResponse)

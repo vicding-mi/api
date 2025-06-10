@@ -21,7 +21,10 @@ def validate_file(file_path):
     """Validate a single file against the external service."""
     print(f"Validating {file_path}...")
     filename = os.path.basename(file_path)
+    url_part = file_path.split("/")[-2]  # Get the folder name, which is the url part
+    # TODO: update the URL and path, this should take the jsons from parent directory
     url = VALIDATION_URL + "products/" + filename
+    url = VALIDATION_URL + f"{url_part}/" + filename
     print(f"Validation URL: {url}")
     response = httpx.get(url)
     print(f"Response: {response.status_code} {response.text}")
@@ -36,7 +39,10 @@ def validate_file(file_path):
 def main():
     """Main function to validate pushed files."""
     print(f"CHANGED_FILES: {CHANGED_FILES}")
-    pushed_files = get_pushed_files()
+    # pushed_files = get_pushed_files()
+    # TODO: the pushed_files in the next line is for debugging only, it should be replaced with the line above
+    pushed_files = ["../../openapi/ver/current/sample_data/products/test.json",
+                   "../../openapi/ver/current/sample_data/products/test1.json"]
     print(f"Pushed files: {pushed_files}")
     if not pushed_files:
         print("No JSON files to validate.")
