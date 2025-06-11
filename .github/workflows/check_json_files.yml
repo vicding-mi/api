@@ -4,16 +4,44 @@ on:
   push:
     paths:
       - 'openapi/ver/**/*.json'
+      - 'openapi/ver/**/skg-if-openapi.yaml'
   pull_request:
     paths:
       - 'openapi/ver/**/*.json'
 
 jobs:
-  fetch_changed_files:
+  validate_yaml_files:
     runs-on: ubuntu-latest
 
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+#      - name: Install dependencies
+#        run: |
+#          python -m pip install --upgrade pip
+#          pip install httpx
+#
+#      - name: Get changed files for push
+#        run: |
+#          CHANGED_FILES=$(git diff --name-only HEAD^ HEAD | tr '\n' ' ')
+#          echo "CHANGED_FILES=$CHANGED_FILES" >> $GITHUB_ENV
+#          echo "Changed files: $CHANGED_FILES"
+#
+#      - name: Validate changed files
+#        run: |
+#          echo "Validating changed files..."
+#          python .github/scripts/validate_files.py
+
+  validate_json_files:
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
