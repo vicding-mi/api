@@ -18,7 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Run Spectral
-        uses: stoplight/spectral-action@latest
+        uses: stoplightio/spectral-action@latest
         with:
           file_glob: 'openapi/ver/**/skg-if-openapi.yaml'
           spectral_ruleset: .spectral.yaml

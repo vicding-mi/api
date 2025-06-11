@@ -15,7 +15,7 @@ info:
       
     This API is compatible with SKG-IF DataModel 1.0.1 and [JSON-LD context](https://w3id.org/skg-if/context/1.0.1/skg-if.json)
 
-    # Note for implementers:
+    # Note for implementers :
       - Please refer to [SKG-IF OpenAPI Implementer documentation](https://docs.google.com/document/d/1t7b7h28UTtM56Sda4NGJIp0hnQfGbcVVGn12fny9wfI/edit?usp=sharing)   
       - [RDA SKG-IF WG](https://skg-if.github.io/) does not provide any official implementation of the current specification.
       - Recommended OpenAPI viewer : [StopLight/Elements](https://elements-demo.stoplight.io/)  (Use a public URL exposing the current file)
