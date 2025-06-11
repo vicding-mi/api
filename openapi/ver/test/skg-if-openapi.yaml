@@ -873,9 +873,8 @@ components:
         - $ref: "#/components/schemas/Entity"
         - type: object
           required: [
-            "name",
-            "entity_type"
-          ] 
+            "name"
+          ]
           properties :
             entity_type:
               default: "organisation"
@@ -1000,9 +999,8 @@ components:
         - $ref: "#/components/schemas/Entity"                     
         - type: object
           required: [
-            "name",
-            "entity_type"
-          ]  
+            "name"
+          ]
           properties :
             entity_type:
               default: "person"
