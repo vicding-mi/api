@@ -873,7 +873,8 @@ components:
         - $ref: "#/components/schemas/Entity"
         - type: object
           required: [
-            "name"
+            "name",
+            "entity_type"
           ] 
           properties :
             entity_type:
@@ -999,7 +1000,8 @@ components:
         - $ref: "#/components/schemas/Entity"                     
         - type: object
           required: [
-            "name"
+            "name",
+            "entity_type"
           ]  
           properties :
             entity_type:
