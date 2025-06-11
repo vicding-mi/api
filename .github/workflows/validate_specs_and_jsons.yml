@@ -1,4 +1,4 @@
-name: Validate Files
+name: Validate SKG-IF Specs and JSON Files
 
 on:
   push:
