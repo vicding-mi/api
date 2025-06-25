@@ -1,4 +1,4 @@
 .idea
 .venv
 __pycache__
-./openapi/docker_build
+openapi/docker_build
