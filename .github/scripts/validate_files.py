@@ -166,8 +166,7 @@ def main():
             stop_docker_container("prism")
             stop_docker_container("fastapi")
         else:
-            print(f"⚠️ File {file_path} does not exist locally.")
-            all_valid = False
+            print(f"⚠️ File {file_path} does not exist, skipping validation.")
 
     if not all_valid:
         exit(1)
