@@ -1,19 +1,35 @@
-name: Validate Files
+name: Validate SKG-IF Specs and JSON Files
 
 on:
   push:
     paths:
       - 'openapi/ver/**/*.json'
+      - 'openapi/ver/**/skg-if-openapi.yaml'
   pull_request:
     paths:
       - 'openapi/ver/**/*.json'
+      - 'openapi/ver/**/skg-if-openapi.yaml'
 
 jobs:
-  fetch_changed_files:
+  validate_yaml_files:
     runs-on: ubuntu-latest
+    name: Validate YAML Files
 
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Spectral
+        uses: stoplightio/spectral-action@latest
+        with:
+          file_glob: 'openapi/ver/**/skg-if-openapi.yaml'
+          spectral_ruleset: .spectral.yaml
+
+      - if: ${{ failure() }}
+        run: exit()
+
+  validate_json_files:
+    runs-on: ubuntu-latest
+    name: Validate JSON Files
+    needs: validate_yaml_files
 
     steps:
       - name: Checkout code
