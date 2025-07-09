@@ -190,23 +190,36 @@ paths:
           These filters aren't attributes of the `product` object, but they're handy for solving some common use cases.
           | Filter key | Filter value | List returned | Attribute filter example |
           | -------- | -------- | ------- | ------- |
-          | cf.search.title | a string | `product` with title containing the filter value | `search.title:ocean` |
-          | cf.search.title_abstract | a string | `product` with title or abstract containing the filter value | `search.title_abstract:ocean` |
-          | cf.contributions_orcid | a string | `product` with contributor with orcid value | `contributions_orcid:0000-0002-1825-0097` |
-          | cf.contributions_aff_ror | a string | `product` with contributor with declared_affiliations ror value | `contributions_aff_ror:05gq02987` |
-          | cf.contributions_aff_country | a string | `product` with contributor with declared_affiliations country value | `contributions_aff_country:us`
-          | cf.cites | a local_identifier | `product` that cites the `product` having local_identifier filter value | `cites:prod_1` |
-          | cf.cited_by | a local_identifier | `product` that cites the `product` having local_identifier filter value | `cited_by:prod_1` |
-          | cf.cites_doi | a doi | `product` that cites the `product` having doi filter value | `cites_doi:10.1038/sdata.2016.18` |
-          | cf.cited_by_doi | a doi | `product` that cites the `product` having doi filter value | `cited_by_doi:10.1038/sdata.2016.18` |
+          | cf.search.title | a string | `product` with title containing the filter value | `cf.search.title:ocean` |
+          | cf.search.title_abstract | a string | `product` with title or abstract containing the filter value | `cf.search.title_abstract:ocean` |
+          | cf.contributions_orcid | a string | `product` with contributor with orcid value | `cf.contributions_orcid:0000-0002-1825-0097` |
+          | cf.contributions_aff_ror | a string | `product` with contributor with declared_affiliations ror value | `cf.contributions_aff_ror:05gq02987` |
+          | cf.contributions_aff_country | a string | `product` with contributor with declared_affiliations country value | `cf.contributions_aff_country:us`
+          | cf.cites | a local_identifier | `product` that cites the `product` having local_identifier filter value | `cf.cites:prod_1` |
+          | cf.cited_by | a local_identifier | `product` that cites the `product` having local_identifier filter value | `cf.cited_by:prod_1` |
+          | cf.cites_doi | a doi | `product` that cites the `product` having doi filter value | `cf.cites_doi:10.1038/sdata.2016.18` |
+          | cf.cited_by_doi | a doi | `product` that cites the `product` having doi filter value | `cf.cited_by_doi:10.1038/sdata.2016.18` |
+
+
+          __Query parameter syntax examples__ \
+
+           * `?filter=product_type:literature,identifiers.id:10.1038/sdata.2016.18`
+           * `?filter=cf.search.title:ocean`
+           * `?filter=cf.contributions_orcid:0000-0002-1825-0097`
 
           <!-- theme: warning  -->
           > #### Filter error
           > Each filter implementation is optional.
           > If the endpoint does not implement one of the requested filters it must return an HTTP 422 response.
       parameters:
-        - $ref : '#/components/parameters/filterQueryParam'
-          name: filter
+        - name: filter
+          in: query
+          description: |
+                Search filter. Format : coma separated.
+                Query parameter examples : `?filter=cf.search.title:ocean` or `?filter=product_type:literature,identifiers.id:10.1038/sdata.2016.18`
+          schema:
+            type: string
+            pattern: '^(,?.+:.+)*$'
           examples : # note example with parameter $ref. OK on Redoc, KO on stoplight
             product_type_lit_ex :
               value: product_type:literature
@@ -218,7 +231,7 @@ paths:
               value: contributions.person.identifiers.id:0000-0002-1825-0097,contributions.person.identifiers.scheme:orcid
               summary : Get all product with author with identifier scheme 'orcid' and id '0000-0002-1825-0097'
             title_ex :
-              value: search_title:ocean
+              value: cf.search.title:ocean
               summary : search product which title contains 'ocean'
       responses:
         '200':
