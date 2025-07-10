@@ -134,7 +134,11 @@ paths:
                         dates: # http://api.crossref.org/works/10.1038/sdata.2016.18
                           publication: "2016-03-15T00:00:00.0Z"
                           deposit: "2023-01-04T12:47:12.0Z"
-
+                    related_products: {
+                        cites: [
+                          "614a6575-5d6c-416c-a8e1-f49a5d589bf8"
+                        ]
+                    }
                 DatasetEx02:
                   summary: "Dataset - OpenAIRE Graph dataset new collected projects"
                   value :
@@ -895,7 +899,9 @@ components:
               description:  List of `grant` associated with the `product`
               items:
                 $ref: '#/components/schemas/GrantLite'
-            #related_products not included
+            related_products:
+              $ref: '#/components/schemas/ProductRelated'
+
       examples:
         - "@context": [
             "https://w3id.org/skg-if/context/1.0.1/skg-if.json",
@@ -953,6 +959,11 @@ components:
                         dates: # http://api.crossref.org/works/10.1038/sdata.2016.18
                           publication: "2016-03-15T00:00:00.0Z"
                           deposit: "2023-01-04T12:47:12.0Z"
+              related_products: {
+                  cites: [
+                    "614a6575-5d6c-416c-a8e1-f49a5d589bf8"
+                  ]
+              }
     ProductContribution:
       type: object
       title: 'ProductContribution'
@@ -1179,6 +1190,40 @@ components:
               $ref: '#/components/schemas/VenueLite'
             hosting_data_source :
               $ref: '#/components/schemas/DataSourceLite'
+    ProductRelated:
+      type: object
+      description : A dictionary of objects representing related `product`, where the semantics of such relationships is specified as a key.
+      properties :
+        cites:
+          type: array
+          items:
+              local_identifier:
+              type: string
+              description: "`product` local_identifier"
+        is_supplemented_by:
+          type: array
+          items:
+              local_identifier:
+              type: string
+              description: "`product` local_identifier"
+        is_documented_by:
+          type: array
+          items:
+              local_identifier:
+              type: string
+              description: "`product` local_identifier"
+        is_new_version_of:
+          type: array
+          items:
+              local_identifier:
+              type: string
+              description: "`product` local_identifier"
+        is_part_of:
+          type: array
+          items:
+              local_identifier:
+              type: string
+              description: "`product` local_identifier"
     Agent:
       type: object
       title: "Agent"
