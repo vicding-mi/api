@@ -870,6 +870,7 @@ components:
               type: array
               description:  List of `topic` covered by the `product`
               items:
+                required: [ "term" ]
                 properties:
                   term:
                     $ref: '#/components/schemas/Topic'
@@ -956,6 +957,7 @@ components:
       type: object
       title: 'ProductContribution'
       description: 'Product contribution. Describes a `person` or `organisation`, its role, contribution, rank, when working on a `product`. See definition in SKG-IF [Research product](https://skg-if.github.io/interoperability-framework/docs/research-product.html#contributions)'
+      required: [ "by" ]
       properties:
         by:
           description: The identifier of a `person` or `organisation` contributing to a `product`.
@@ -1148,6 +1150,7 @@ components:
             pages:
               type : object
               description: the pages where the manifestation in defined (within its Venue).
+              required: [ "first", "last" ]
               properties :
                 first:
                   type : string
@@ -1196,6 +1199,7 @@ components:
             identifiers:
               type: array
               items:
+                required: [ "scheme", "value" ]
                 properties:
                   scheme:
                     type: string
@@ -1234,6 +1238,7 @@ components:
             identifiers:
               type: array
               items:
+                required: [ "scheme", "value" ]
                 properties:
                   scheme:
                     type: string
@@ -1305,6 +1310,7 @@ components:
               description : "All the affiliations of a `person`. (curriculum vitae list )"
               type: array
               items:
+                required: [ "affiliation"]
                 properties:
                   affiliation:
                     description : "`organisation` a `person` is affiliated with"
@@ -1367,6 +1373,7 @@ components:
             identifiers:
               type: array
               items:
+                required: [ "scheme", "value" ]
                 properties:
                   scheme:
                     type: string
@@ -1423,6 +1430,7 @@ components:
             identifiers:
               type: array
               items:
+                required: [ "scheme", "value" ]
                 properties:
                   scheme:
                     type: string
@@ -1471,6 +1479,7 @@ components:
             duration :
               type: object
               description : "The duration of the `grant`"
+              required: [ "start"]
               properties :
                 start:
                   type: string
@@ -1494,7 +1503,7 @@ components:
                 $ref: '#/components/schemas/Organisation'
             contributions:
               type: array
-              description: List of objects describing a `person` or `organisatiion`, its role, contribution, rank, when working on the `grant`.
+              description: List of objects describing a `person` or `organisation`, its role, contribution, rank, when working on the `grant`.
               items:
                 $ref: '#/components/schemas/GrantContribution'
     GrantContribution:
@@ -1549,6 +1558,7 @@ components:
             identifiers:
               type: array
               items:
+                required: [ "scheme", "value" ]
                 properties:
                   scheme:
                     type: string
@@ -1650,6 +1660,7 @@ components:
             identifiers:
               type: array
               items:
+                required: [ "scheme", "value" ]
                 properties:
                   scheme:
                     type: string
@@ -1714,6 +1725,7 @@ components:
                 fake: ["datasource"]
             identifiers:
               type: array
+              required: [ "scheme", "value" ]
               items:
                 properties:
                   scheme:
@@ -1746,6 +1758,7 @@ components:
         identifiers:
           type: array
           items:
+            required: [ "scheme", "value" ]
             properties:
               scheme:
                 type: string
