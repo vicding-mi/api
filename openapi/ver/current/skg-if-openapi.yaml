@@ -1538,13 +1538,13 @@ components:
                   format: date-time
                   description: The start datetime of the Grant. The string should be compliant with the ISO 8601 datetime string.
                   examples:
-                    - "2023-01-01T00:00:00"
+                    - "2023-01-01T00:00:00Z"
                 end:
                   type: string
                   format: date-time
                   description: The end datetime of the Grant. The string should be compliant with the ISO 8601 datetime string.
                   examples:
-                    - "2025-12-31T23:59:59"
+                    - "2025-12-31T23:59:59Z"
             website:
               type: string
               description: The website URL for the `grant`
