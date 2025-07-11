@@ -73,10 +73,13 @@ paths:
               schema:
                 allOf:
                   - $ref: "#/components/schemas/JsonLdCtx"
-                "@graph":
-                  type: array
-                  items:
-                    - $ref: "#/components/schemas/Product"
+                  - type: object
+                    required: ['@graph']
+                    properties:
+                      "@graph":
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/Product"
               examples:
                 JournalArticleEx01:
                   summary: "Journal article - FAIR Guiding Principles"
@@ -318,10 +321,13 @@ paths:
               schema:
                 allOf:
                   - $ref: "#/components/schemas/JsonLdCtx"
-                "@graph":
-                  type: array
-                  items:
-                    - $ref: "#/components/schemas/Person"
+                  - type: object
+                    required: ['@graph']
+                    properties:
+                      "@graph":
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/Person"
               examples:
                 PersonEx01:
                   summary: a single person
@@ -439,10 +445,13 @@ paths:
               schema:
                 allOf:
                   - $ref: "#/components/schemas/JsonLdCtx"
-                "@graph":
-                  type: array
-                  items:
-                    - $ref: "#/components/schemas/Organisation"
+                  - type: object
+                    required: ['@graph']
+                    properties:
+                      "@graph":
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/Organisation"
   '/organisations':
     get:
       tags:
@@ -516,10 +525,13 @@ paths:
               schema:
                 allOf:
                   - $ref: "#/components/schemas/JsonLdCtx"
-                "@graph":
-                  type: array
-                  items:
-                    - $ref: "#/components/schemas/Grant"
+                  - type: object
+                    required: ['@graph']
+                    properties:
+                      "@graph":
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/Grant"
   '/grants':
     get:
       tags:
@@ -625,10 +637,13 @@ paths:
               schema:
                 allOf:
                   - $ref: "#/components/schemas/JsonLdCtx"
-                "@graph":
-                  type: array
-                  items:
-                    - $ref: "#/components/schemas/Venue"
+                  - type: object
+                    required: ['@graph']
+                    properties:
+                      "@graph":
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/Venue"
   '/venues':
     get:
       tags:
@@ -691,10 +706,13 @@ paths:
               schema:
                 allOf:
                   - $ref: "#/components/schemas/JsonLdCtx"
-                "@graph":
-                  type: array
-                  items:
-                  - $ref: "#/components/schemas/Topic"
+                  - type: object
+                    required: ['@graph']
+                    properties:
+                      "@graph":
+                        type: array
+                        items:
+                         $ref: "#/components/schemas/Topic"
   '/topics':
     get:
       tags:
@@ -754,10 +772,13 @@ paths:
               schema:
                 allOf:
                   - $ref: "#/components/schemas/JsonLdCtx"
-                "@graph":
-                  type: array
-                  items:
-                    - $ref: "#/components/schemas/DataSource"
+                  - type: object
+                    required: ['@graph']
+                    properties:
+                      "@graph":
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/DataSource"
   '/datasources':
     get:
       tags:
