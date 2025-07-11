@@ -187,7 +187,7 @@ paths:
           | contributions.declared_affiliations. local_identifier | `contributions.declared_affiliations. local_identifier:org_1` |
           | contributions.declared_affiliations. identifiers.id | `contributions.declared_affiliations. identifiers.id:05gq02987` |
           | contributions.declared_affiliations. identifiers.scheme | `contributions.declared_affiliations. identifiers.scheme:ror` |
-          | contributions.declared_affiliations. name | `contributions.declared_affiliations. name:brown%20university` |
+          | contributions.declared_affiliations. name | `contributions.declared_affiliations. name:brown university` |
           | contributions.declared_affiliations. short_name | `contributions.declared_affiliations. short_name:BU` |
           | funding. local_identifier | `funding. local_identifier:grant_1` |
           | funding. grant_number | `funding. grant_number:101095129` |
@@ -202,7 +202,7 @@ paths:
           | cf.search.title_abstract | a string | `product` with title or abstract containing the filter value | `cf.search.title_abstract:ocean` |
           | cf.contributions_orcid | a string | `product` with contributor with orcid value | `cf.contributions_orcid:0000-0002-1825-0097` |
           | cf.contributions_aff_ror | a string | `product` with contributor with declared_affiliations ror value | `cf.contributions_aff_ror:05gq02987` |
-          | cf.contributions_aff_country | a string | `product` with contributor with declared_affiliations country value | `cf.contributions_aff_country:us`
+          | cf.contributions_aff_country | a string | `product` with contributor with declared_affiliations country value | `cf.contributions_aff_country:us` |
           | cf.cites | a local_identifier | `product` that cites the `product` having local_identifier filter value | `cf.cites:prod_1` |
           | cf.cited_by | a local_identifier | `product` that cites the `product` having local_identifier filter value | `cf.cited_by:prod_1` |
           | cf.cites_doi | a doi | `product` that cites the `product` having doi filter value | `cf.cites_doi:10.1038/sdata.2016.18` |
@@ -354,13 +354,13 @@ paths:
           | -------- | -------- |
           | identifiers.id | `identifiers.id:0000-0002-1825-0097` |
           | identifiers.scheme | `identifiers.scheme:orcid` |
-          | given_name | given_name:Josiah |
-          | family_name |  family_name:Carberry |
-          | name |  name:Josiah%20Carberro |
-          | affiliations.affiliation.local_identifier | affiliations.affiliation.local_identifier:xxx |
-          | affiliations.affiliation.name | affiliations.affiliation.name:Brown%20University |
-          | affiliations.affiliation.short_name |  affiliations.affiliation.short_name:BU |
-          | affiliations.role | affiliations.role:affiliate |
+          | given_name | `given_name:Josiah` |
+          | family_name |  `family_name:Carberry` |
+          | name |  `name:Josiah Carberro` |
+          | affiliations.affiliation.local_identifier | `affiliations.affiliation.local_identifier:xxx` |
+          | affiliations.affiliation.name | `affiliations.affiliation.name:Brown University` |
+          | affiliations.affiliation.short_name |  `affiliations.affiliation.short_name:BU` |
+          | affiliations.role | `affiliations.role:affiliate` |
 
           __Convenience filters__ \
           These filters aren't attributes of the `person` object, but they're handy for solving some common use cases.
@@ -458,10 +458,10 @@ paths:
           | -------- | -------- |
           | identifiers.id | `identifiers.id:05gq02987` |
           | identifiers.scheme | `identifiers.scheme:ror` |
-          | name | name:Brown%20University |
-          | short_name |  short_name:BU |
-          | website | website:https://www.brown.edu”
-          | country | country:US |
+          | name | `name:Brown University` |
+          | short_name |  `short_name:BU` |
+          | website | `website:https://www.brown.edu` |
+          | country | `country:US` |
 
           __Convenience filters__ \
           These filters aren't attributes of the `organization` object, but they're handy for solving some common use cases.
@@ -534,44 +534,44 @@ paths:
 
           | Filter key | Attribute filter example |
           | -------- | -------- |
-          | data_source_classification | data_source_classification:repository |
-          | research_product_type | research_product_type:metadata |
-          | identifiers.scheme | identifiers.scheme:doi |
-          | identifiers.value | identifiers.value:10.3030/101095129 |
-          | acronym | acronym:CIKM |
-          | currency | currency:EUR |
-          | website | website:https://ostrails.eu/ |
-          | beneficiaries.identifiers.scheme | beneficiaries.identifiers.scheme:ror |
-          | beneficiaries.identifiers.value | beneficiaries.identifiers.value:https://ror.org/05gq02987 |
-          | beneficiaries.name | beneficiaries.name:”Brown University” |
-          | beneficiaries.short_name |  beneficiaries.short_name:BU |
-          | beneficiaries.website | beneficiaries.website:https://www.brown.edu”
-          | beneficiaries.country | beneficiaries.country:US |
-          | contributions.by.local_identifier | contributions.by.local_identifier:xxx |
-          | contributions.by.identifiers.scheme | contributions.by.identifiers.scheme:orcid |
-          | contributions.by.identifiers.value | contributions.by.identifiers.value:0000-0002-1825-0097 |
-          | contributions.by.given_name | contributions.by.given_name:Josiah |
-          | contributions.by.family_name |  contributions.by.family_name:Carberry |
-          | contributions.by.name |  contributions.by.name:”Josiah Carberro” |
-          | contributions.declared_affiliations.local_identifier | contributions.declared_affiliations.local_identifier:yyy |
-          | contributions.declared_affiliations.identifiers.scheme | contributions.declared_affiliations.identifiers.scheme:ror |
-          | contributions.declared_affiliations.identifiers.value | contributions.declared_affiliations.identifiers.value:https://ror.org/05gq02987 |
-          | contributions.declared_affiliations.name | contributions.declared_affiliations.name:”Brown University” |
-          | contributions.declared_affiliations.short_name |  contributions.declared_affiliations.short_name:BU |
-          | contributions.declared_affiliations.website | contributions.declared_affiliations.website:https://www.brown.edu”
-          | contributions.declared_affiliations.country | contributions.declared_affiliations.country:US |
-          | contributions.role | contributions.role:”project manager” |
-          | identifiers.scheme | identifiers.scheme:doi |
-          | identifiers.value | identifiers.value:10.3030/101095129 |
-          | grant_number |  grant_number:101095129 |
-          | acronym | acronym:GraspOS |
-          | funding_agency.identifiers.scheme | funding_agency.identifiers.scheme:ror |
-          | funding_agency.identifiers.value | funding_agency.identifiers.value:https://ror.org/05gq02987 |
-          | funding_agency.name | funding_agency.name:”Brown University” |
-          | funding_agency.short_name |  funding_agency.short_name:BU |
-          | funding_agency.website | funding_agency.website:https://www.brown.edu”
-          | funding_agency.country | funding_agency.country:US |
-          | funding_stream | funding_stream:”Horizon Europe” |
+          | data_source_classification | `data_source_classification:repository` |
+          | research_product_type | `research_product_type:metadata` |
+          | identifiers.scheme | `identifiers.scheme:doi` |
+          | identifiers.value | `identifiers.value:10.3030/101095129` |
+          | acronym | `acronym:CIKM` |
+          | currency | `currency:EUR` |
+          | website | `website:https://ostrails.eu/` |
+          | beneficiaries.identifiers.scheme | `beneficiaries.identifiers.scheme:ror` |
+          | beneficiaries.identifiers.value | `beneficiaries.identifiers.value:https://ror.org/05gq02987` |
+          | beneficiaries.name | `beneficiaries.name:Brown University` |
+          | beneficiaries.short_name |  `beneficiaries.short_name:BU` |
+          | beneficiaries.website | `beneficiaries.website:https://www.brown.edu` |
+          | beneficiaries.country | `beneficiaries.country:US` |
+          | contributions.by.local_identifier | `contributions.by.local_identifier:xxx` |
+          | contributions.by.identifiers.scheme | `contributions.by.identifiers.scheme:orcid` |
+          | contributions.by.identifiers.value | `contributions.by.identifiers.value:0000-0002-1825-0097` |
+          | contributions.by.given_name | `contributions.by.given_name:Josiah` |
+          | contributions.by.family_name |  `contributions.by.family_name:Carberry` |
+          | contributions.by.name |  `contributions.by.name:Josiah Carberro` |
+          | contributions.declared_affiliations.local_identifier | `contributions.declared_affiliations.local_identifier:yyy` |
+          | contributions.declared_affiliations.identifiers.scheme | `contributions.declared_affiliations.identifiers.scheme:ror` |
+          | contributions.declared_affiliations.identifiers.value | `contributions.declared_affiliations.identifiers.value:https://ror.org/05gq02987` |
+          | contributions.declared_affiliations.name | `contributions.declared_affiliations.name:Brown University` |
+          | contributions.declared_affiliations.short_name |  `contributions.declared_affiliations.short_name:BU` |
+          | contributions.declared_affiliations.website | `contributions.declared_affiliations.website:https://www.brown.edu` |
+          | contributions.declared_affiliations.country | `contributions.declared_affiliations.country:US` |
+          | contributions.role | `contributions.role:project manager` |
+          | identifiers.scheme | `identifiers.scheme:doi` |
+          | identifiers.value | `identifiers.value:10.3030/101095129` |
+          | grant_number |  `grant_number:101095129` |
+          | acronym | `acronym:GraspOS` |
+          | funding_agency.identifiers.scheme | `funding_agency.identifiers.scheme:ror` |
+          | funding_agency.identifiers.value | `funding_agency.identifiers.value:https://ror.org/05gq02987` |
+          | funding_agency.name | `funding_agency.name:Brown University` |
+          | funding_agency.short_name |  `funding_agency.short_name:BU` |
+          | funding_agency.website | `funding_agency.website:https://www.brown.edu` |
+          | funding_agency.country | `funding_agency.country:US` |
+          | funding_stream | `funding_stream:Horizon Europe` |
 
 
           __Convenience filters__ \
@@ -580,18 +580,13 @@ paths:
           | Filter key | Filter value | List returned | Attribute filter example |
           | -------- | -------- | ------- | ------- |
           | cf.search.name | a string | `datasource` with name containing the filter value | `cf.search.name:Management` |
-          | cf.search.titles | a string | `grant` with the `titles` property containing the specified keywords | cf.search.titles:graspos |
-          | cf.search.abstracts | a string | `grant` with the `abstracts` property containing the specified keywords | cf.search.abstracts:metrics |
-          | cf.funded_amount.from | a number | `grant` with a funded amount greater than or equal to the specified value.
-          | `cf.funded_amount.from:1000000` |
-          | cf.funded_amount.to | a number | `grant` with a funded amount less than or equal to the specified value.
-          | `cf.funded_amount.to:2000000` |
-          | cf.duration.start.from | a ISO 8601 datetime string | `grant` with a start date on or after the specified date.
-          | `cf.funded_amount.from:2023-01-01T00:00:00` |
-          | cf.duration.start.to | a ISO 8601 datetime string | `grant` with start date on or before the specified date.
-          | `cf.duration.start.to:2023-01-01T00:00:00` |
-          | cf.duration.end.from | a ISO 8601 datetime string | `grant` with an end date on or after the specified date.
-          | `cf.duration.end.from:2025-12-31T23:59:59` |
+          | cf.search.titles | a string | `grant` with the `titles` property containing the specified keywords | `cf.search.titles:graspos |
+          | cf.search.abstracts | a string | `grant` with the `abstracts` property containing the specified keywords | `cf.search.abstracts:metrics` |
+          | cf.funded_amount.from | a number | `grant` with a funded amount greater than or equal to the specified value. | `cf.funded_amount.from:1000000` |
+          | cf.funded_amount.to | a number | `grant` with a funded amount less than or equal to the specified value. | `cf.funded_amount.to:2000000` |
+          | cf.duration.start.from | a ISO 8601 datetime string | `grant` with a start date on or after the specified date.| `cf.funded_amount.from:2023-01-01T00:00:00` |
+          | cf.duration.start.to | a ISO 8601 datetime string | `grant` with start date on or before the specified date. | `cf.duration.start.to:2023-01-01T00:00:00` |
+          | cf.duration.end.from | a ISO 8601 datetime string | `grant` with an end date on or after the specified date. | `cf.duration.end.from:2025-12-31T23:59:59` |
 
 
       parameters:
@@ -647,11 +642,11 @@ paths:
 
           | Filter key | Attribute filter example |
           | -------- | -------- |
-          | acronym | acronym:JPC |
-          | type | type:journal |
-          | identifiers.scheme | identifiers.scheme:issn |
-          | identifiers.value | identifiers.value:0264-3561 |
-          | name | name:”Journal of Psychoceramics” |
+          | acronym | `acronym:JPC` |
+          | type | `type:journal` |
+          | identifiers.scheme | `identifiers.scheme:issn` |
+          | identifiers.value | `identifiers.value:0264-3561` |
+          | name | `name:Journal of Psychoceramics` |
 
           __Convenience filters__ \
           These filters aren't attributes of the `venue` object, but they're handy for solving some common use cases.
@@ -713,15 +708,15 @@ paths:
 
           | Filter key | Attribute filter example |
           | -------- | -------- |
-          | identifiers.scheme | identifiers.scheme:wikidata |
-          | identifiers.value | identifiers.value:https://www.wikidata.org/wiki/Q42|
+          | identifiers.scheme | `identifiers.scheme:wikidata` |
+          | identifiers.value | `identifiers.value:https://www.wikidata.org/wiki/Q42` |
 
           __Convenience filters__ \
           These filters aren't attributes of the `topic` object, but they're handy for solving some common use cases.
 
           | Filter key | Filter value | List returned | Attribute filter example |
           | -------- | -------- | ------- | ------- |
-          | cf.search.labels | a string | `topic` with label containing the filter value | `cf.search.labels:Solar`
+          | cf.search.labels | a string | `topic` with label containing the filter value | `cf.search.labels:Solar` |
 
       parameters:
         - $ref : '#/components/parameters/filterQueryParam'
@@ -776,11 +771,11 @@ paths:
 
           | Filter key | Attribute filter example |
           | -------- | -------- |
-          | data_source_classification | data_source_classification:repository |
-          | research_product_type | research_product_type:metadata |
-          | identifiers.scheme | identifiers.scheme:doi |
-          | identifiers.value | identifiers.value:10.3030/101095129 |
-          | acronym | acronym:CIKM |
+          | data_source_classification | `data_source_classification:repository` |
+          | research_product_type | `research_product_type:metadata` |
+          | identifiers.scheme | `identifiers.scheme:doi` |
+          | identifiers.value | `identifiers.value:10.3030/101095129` |
+          | acronym | `acronym:CIKM` |
 
           __Convenience filters__ \
           These filters aren't attributes of the `datasource` object, but they're handy for solving some common use cases.
