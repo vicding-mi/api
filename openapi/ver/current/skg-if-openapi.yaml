@@ -78,6 +78,8 @@ paths:
                     properties:
                       "@graph":
                         type: array
+                        minItems: 1
+                        maxItems: 1
                         items:
                           $ref: "#/components/schemas/Product"
               examples:
@@ -326,6 +328,8 @@ paths:
                     properties:
                       "@graph":
                         type: array
+                        minItems: 1
+                        maxItems: 1
                         items:
                           $ref: "#/components/schemas/Person"
               examples:
@@ -450,6 +454,8 @@ paths:
                     properties:
                       "@graph":
                         type: array
+                        minItems: 1
+                        maxItems: 1
                         items:
                           $ref: "#/components/schemas/Organisation"
   '/organisations':
@@ -530,6 +536,8 @@ paths:
                     properties:
                       "@graph":
                         type: array
+                        minItems: 1
+                        maxItems: 1
                         items:
                           $ref: "#/components/schemas/Grant"
   '/grants':
@@ -642,6 +650,8 @@ paths:
                     properties:
                       "@graph":
                         type: array
+                        minItems: 1
+                        maxItems: 1
                         items:
                           $ref: "#/components/schemas/Venue"
   '/venues':
@@ -711,6 +721,8 @@ paths:
                     properties:
                       "@graph":
                         type: array
+                        minItems: 1
+                        maxItems: 1
                         items:
                          $ref: "#/components/schemas/Topic"
   '/topics':
@@ -777,6 +789,8 @@ paths:
                     properties:
                       "@graph":
                         type: array
+                        minItems: 1
+                        maxItems: 1
                         items:
                           $ref: "#/components/schemas/DataSource"
   '/datasources':
