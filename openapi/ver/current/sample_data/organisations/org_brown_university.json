@@ -1,21 +1,29 @@
 {
-     "@context": [
+    "@context": [
         "https://w3id.org/skg-if/context/1.0.1/skg-if.json",
         {
             "@base": "https://w3id.org/skg-if/sandbox/myprov/"
         }
     ],
-    "local_identifier": "6f368a3a-b1cf-498f-b2de-222222222",
-    "entity_type": "organisation",
-    "identifiers": [
+    "@graph": [
         {
-            "scheme": "ror",
-            "value": "https://ror.org/05gq02987"
+            "local_identifier": "6f368a3a-b1cf-498f-b2de-222222222",
+            "entity_type": "organisation",
+            "identifiers": [
+                {
+                    "scheme": "ror",
+                    "value": "https://ror.org/05gq02987"
+                }
+            ],
+            "name": "Brown University",
+            "other_names": [
+                "Brownie"
+            ],
+            "short_name": "BU",
+            "country": "US",
+            "type": [
+                "education"
+            ]
         }
-    ],
-    "name": "Brown University",
-    "other_names": ["Brownie"],
-    "short_name": "BU",
-    "country": "US",
-    "type": ["education"]
+    ]
 }
