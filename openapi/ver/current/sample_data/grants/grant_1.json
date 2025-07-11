@@ -1,0 +1,92 @@
+{
+    "@context": [
+        "https://w3id.org/skg-if/context/1.0.1/skg-if.json",
+        {
+            "@base": "https://w3id.org/skg-if/sandbox/myprov/"
+        }
+    ],
+    "local_identifier": "6f368a3a-b1cf-498f-b2de-27135d1e0011",
+    "identifiers": [
+        {
+            "scheme": "doi",
+            "value": "https://doi.org/10.3030/101095129"
+        }
+    ],
+    "entity_type": "grant",
+    "grant_number": "101095129",
+    "title": "GraspOS: next Generation Research Assessment to Promote Open Science",
+    "abstract": "GraspOS aims to build and operate a data infrastructure to support the policy reforms...",
+    "acronym": "GraspOS",
+    "funding_agency": {
+        "local_identifier": "xxx",
+        "entity_type": "organisation",
+        "identifiers": [
+            {
+                "scheme": "ror",
+                "value": "https://ror.org/05gq02987"
+            }
+        ],
+        "name": "Brown University",
+        "short_name": "BU",
+        "country": "US",
+        "website": "https://www.brown.edu/"
+    },
+    "funding_stream": "Horizon Europe",
+    "currency": "EUR",
+    "funded_amount": 50000,
+    "duration": {
+        "start": "2023-01-01T00:00:00",
+        "end": "2025-12-31T23:59:59"
+    },
+    "website": "https://graspos.eu",
+    "beneficiaries": [
+        {
+            "local_identifier": "xxx",
+            "entity_type": "organisation",
+            "identifiers": [
+                {
+                    "scheme": "ror",
+                    "value": "https://ror.org/05gq02987"
+                }
+            ],
+            "name": "Brown University",
+            "short_name": "BU",
+            "country": "US",
+            "website": "https://www.brown.edu/"
+        }
+    ],
+    "contributions": [
+        {
+            "by": {
+                "local_identifier": "xxx",
+                "entity_type": "person",
+                "identifiers": [
+                    {
+                        "scheme": "orcid",
+                        "value": "0000-0002-1825-0097"
+                    }
+                ],
+                "given_name": "Josiah",
+                "family_name": "Carberry",
+                "name": "Josiah Carberro"
+            },
+            "declared_affiliations": [
+                {
+                    "local_identifier": "xxx",
+                    "entity_type": "organisation",
+                    "identifiers": [
+                        {
+                            "scheme": "ror",
+                            "value": "https://ror.org/05gq02987"
+                        }
+                    ],
+                    "name": "Brown University",
+                    "short_name": "BU",
+                    "country": "US",
+                    "website": "string"
+                }
+            ],
+            "roles": ["co-applicant"]
+        }
+    ]
+}
