@@ -1521,6 +1521,11 @@ components:
             funded_amount:
               type: integer
               description: "Amount funded for the `grant`"
+            keywords:
+              description:  "keywords for the `grant`"
+              type: array
+              items:
+                type: string
             duration :
               type: object
               description : "The duration of the `grant`"
@@ -1575,14 +1580,16 @@ components:
           description: |
             The role of `person` or `organisation` had in a `grant`.\
             Each element in the list is a String compliant with the [SCoRO](https://sparontologies.github.io/scoro/current/scoro.html#http://purl.org/spar/scoro/ProjectRole) taxonomy.
-          type: string
-          enum:
-            - "co-applicant"
-            - "lead applicant"
-            - "project leader"
-            - "project manager"
-            - "project member"
-            - "workpackage leader"
+          type: array
+          items:
+            type: string
+            enum:
+              - "co-applicant"
+              - "lead applicant"
+              - "project leader"
+              - "project manager"
+              - "project member"
+              - "workpackage leader"
     GrantLite:
       type: object
       title: 'GrantLite'
