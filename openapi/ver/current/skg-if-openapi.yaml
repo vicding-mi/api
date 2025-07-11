@@ -919,7 +919,7 @@ components:
               scheme: "doi"
             - value: "26978244"
               scheme: "pmid"
-              contributions:
+          contributions:
                       - contribution: "writing – original draft"
                         role: "author"
                         rank: 1
@@ -937,7 +937,7 @@ components:
                             local_identifier: "32bc66c6-38be-4d5f-85db-d44c9f86921f"
                             entity_type: "organisation"
                             country: "ES"
-              manifestations:
+          manifestations:
                       - type:
                           labels:
                             en: localtypey
@@ -959,11 +959,11 @@ components:
                         dates: # http://api.crossref.org/works/10.1038/sdata.2016.18
                           publication: "2016-03-15T00:00:00.0Z"
                           deposit: "2023-01-04T12:47:12.0Z"
-              related_products: {
-                  cites: [
-                    "614a6575-5d6c-416c-a8e1-f49a5d589bf8"
-                  ]
-              }
+          related_products: {
+              cites: [
+                "614a6575-5d6c-416c-a8e1-f49a5d589bf8"
+              ]
+          }
     ProductContribution:
       type: object
       title: 'ProductContribution'
@@ -1382,7 +1382,7 @@ components:
             - scheme: orcid
               value: 0000-0002-1825-0097
           given_name: Josiah
-          family_name: Josiah
+          family_name: Carberry
           name: Josiah Carberry
           affiliations:
             role: affiliate
@@ -1689,7 +1689,7 @@ components:
     VenueLite:
       type: object
       title: 'VenueLite'
-      description:  "`venue` object containing a limited set of fields. See definition in SKG-IF [Grant](https://skg-if.github.io/interoperability-framework/docs/venue.html) ( entity_type:venue )."
+      description:  "`venue` object containing a limited set of fields. See definition in SKG-IF [Venue](https://skg-if.github.io/interoperability-framework/docs/venue.html) ( entity_type:venue )."
       allOf:
         - $ref: "#/components/schemas/Entity"
         - type: object
@@ -1726,6 +1726,12 @@ components:
                 fake : ['{{random.words(5)}} {{helpers.arrayElement(["Journal", "Catalog"])}}']
               examples:
                 - "Journal of Psychoceramics"
+            acronym:
+              type: string
+              x-faker:
+                random.alpha: [{count: 8, upcase: true}]
+              examples:
+                - "JPC"
     DataSource:
       type: object
       title: 'DataSource'
@@ -1785,10 +1791,6 @@ components:
               type: string
               x-faker:
                 fake : ['{{random.words(4)}} {{helpers.arrayElement(["Archive", "Repository", "Database"])}}']
-            acronym:
-              type: string
-              x-faker:
-                random.alpha: [{count: 8, upcase: true}]
     Entity:
       type: object
       description: "Entity common fields used for entities : `product`,`person`,`organisation`,`grant`,`venue`,`datasource`"
