@@ -422,6 +422,16 @@ paths:
       operationId: getOrganisationById
       parameters:
         - $ref : '#/components/parameters/localIdPathParam'
+      responses:
+        '200':
+          description: Success
+          content:
+            # not 'application/json-ld' to be compatible with StopLight PRISM tool
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/JsonLdCtx"
+                  - $ref: "#/components/schemas/Organisation"
   '/organisations':
     get:
       tags:
@@ -903,11 +913,7 @@ components:
               $ref: '#/components/schemas/ProductRelated'
 
       examples:
-        - "@context": [
-            "https://w3id.org/skg-if/context/1.0.1/skg-if.json",
-            {"@base" : "https://w3id.org/skg-if/sandbox/myprov/"}
-          ]
-          local_identifier: xxx
+        - local_identifier: xxx
           entity_type: product
           product_type: literature
           titles :
@@ -1242,18 +1248,21 @@ components:
               x-faker:
                 fake: ["agent"]
             identifiers:
+              description: Objects representing external identifiers for the entity. See [Agent](https://skg-if.github.io/interoperability-framework/docs/agent.html#identifiers) documentation for supported schemes
               type: array
               items:
                 required: [ "scheme", "value" ]
                 properties:
                   scheme:
                     type: string
+                    description: The scheme for the external identifier.
                     x-faker:
                       fake: ["ror"]
                     examples:
                       - 'ror'
                   value:
                     type: string
+                    description: "The external identifier."
                     x-faker:
                       fake : ['{{random.alphaNumeric(10)}}']
                     examples:
@@ -1281,11 +1290,13 @@ components:
               x-faker:
                 fake: ["organisation"]
             identifiers:
+              description: Objects representing external identifiers for the entity. See [Agent](https://skg-if.github.io/interoperability-framework/docs/agent.html#identifiers) documentation for supported schemes
               type: array
               items:
                 required: [ "scheme", "value" ]
                 properties:
                   scheme:
+                    description: The scheme for the external identifier.
                     type: string
                     x-faker:
                       fake: ["ror"]
@@ -1293,6 +1304,7 @@ components:
                       - 'ror'
                   value:
                     type: string
+                    description: "The external identifier."
                     x-faker:
                       fake : ['{{random.alphaNumeric(10)}}']
                     examples:
@@ -1302,6 +1314,13 @@ components:
               x-faker: company.companyName
               examples:
                 - "Brown University"
+            other_names:
+              description:  "Other names, perhaps in different languages, identifying an `organisation`."
+              type: array
+              items:
+                type: string
+              examples :
+                - ["Brownie"]
             short_name:
               type: string
               #x-faker: company.bsAdjective
@@ -1320,6 +1339,23 @@ components:
               pattern: '^[A-Z]{2}$'
               examples:
                 - "US"
+            type:
+              # https://github.com/skg-if/interoperability-framework/issues/24
+              description:  "The types of an `organisation`."
+              type: array
+              items:
+                type: string
+                enum:
+                  - archive
+                  - company
+                  - education
+                  - facility
+                  - government
+                  - healthcare
+                  - nonprofit
+                  - funder
+                  - research
+                  - unspecified
       examples:
         - local_identifier: 'otf_session12324_org_1124'
           entity_type: 'organisation'
@@ -1418,18 +1454,21 @@ components:
               x-faker:
                 fake: ["person"]
             identifiers:
+              description: Objects representing external identifiers for the entity. See [Agent](https://skg-if.github.io/interoperability-framework/docs/agent.html#identifiers) documentation for supported schemes
               type: array
               items:
                 required: [ "scheme", "value" ]
                 properties:
                   scheme:
                     type: string
+                    description: The scheme for the external identifier.
                     x-faker:
                       fake: ["orcid"]
                     examples :
                       - orcid
                   value:
                     type: string
+                    description: "The external identifier."
                     x-faker:
                       helpers.regexpStyleStringParse: ['[1000-9999]-[1000-9999]-[1000-9999]-[1000-9999]']
                     examples :
@@ -1475,11 +1514,13 @@ components:
               x-faker:
                 fake: ["topic"]
             identifiers:
+              description: Objects representing external identifiers for the entity. See [Topic](https://skg-if.github.io/interoperability-framework/docs/topic.html#identifiers) documentation for supported schemes
               type: array
               items:
                 required: [ "scheme", "value" ]
                 properties:
                   scheme:
+                    description: The scheme for the external identifier.
                     type: string
                     #TODO regexp no space
                     examples:
@@ -1612,17 +1653,20 @@ components:
               x-faker:
                 fake: ["grant"]
             identifiers:
+              description: Objects representing external identifiers for the entity. See [Grant](https://skg-if.github.io/interoperability-framework/docs/grant.html#identifiers) documentation for supported schemes
               type: array
               items:
                 required: [ "scheme", "value" ]
                 properties:
                   scheme:
+                    description: The scheme for the external identifier.
                     type: string
                     x-faker:
                       fake: ["doi"]
                     examples:
                       - "doi"
                   value:
+                    description: "The external identifier."
                     type: string
                     x-faker:
                       fake : ['{{internet.url}}/grant/{{random.alphaNumeric(8)}}']
@@ -1695,18 +1739,25 @@ components:
               x-faker:
                 fake: ["venue"]
             identifiers:
+              description: Objects representing external identifiers for the entity. See [Venue](https://skg-if.github.io/interoperability-framework/docs/venue.html#identifiers) documentation for supported schemes
               type: array
               items:
                 required: [ "scheme", "value" ]
                 properties:
                   scheme:
+                    description: "The scheme for the external identifier."
                     type: string
-                    enum: [issn, eissn, lissn, isbn, opendoar, re3data.org, fairsharing, doi, handle, url]
                     x-faker:
                       fake: ["issn"]
                     examples:
                       - "issn"
+                      - "isbn"
+                      - "lissn"
+                      - "doi"
+                      - "handle"
+                      - "url"
                   value:
+                    description: "The external identifier."
                     type: string
                     x-faker:
                       helpers.regexpStyleStringParse: ['[1000-9999]-[1000-9999]']
@@ -1767,16 +1818,23 @@ components:
               x-faker:
                 fake: ["datasource"]
             identifiers:
+              description: Objects representing external identifiers for the entity. See [Data Source](https://skg-if.github.io/interoperability-framework/docs/data-source.html#identifiers) documentation for supported schemes
               type: array
               required: [ "scheme", "value" ]
               items:
                 properties:
                   scheme:
                     type: string
+                    description: The scheme for the external identifier.
+                    examples:
+                      - doi
                     x-faker:
                       helpers.arrayElement: [["url"]]
                   value:
                     type: string
+                    description: "The external identifier."
+                    examples:
+                      - "10.25504/FAIRsharing.rkwr6y"
                     x-faker:
                       fake : ['{{internet.url}}/datasource/{{random.alphaNumeric(8)}}']
             name:
