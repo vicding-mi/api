@@ -73,7 +73,10 @@ paths:
               schema:
                 allOf:
                   - $ref: "#/components/schemas/JsonLdCtx"
-                  - $ref: "#/components/schemas/Product"
+                "@graph":
+                  type: array
+                  items:
+                    - $ref: "#/components/schemas/Product"
               examples:
                 JournalArticleEx01:
                   summary: "Journal article - FAIR Guiding Principles"
@@ -82,63 +85,63 @@ paths:
                       "https://w3id.org/skg-if/context/1.0.1/skg-if.json",
                       {"@base" : "https://w3id.org/skg-if/sandbox/myprov/"}
                     ]
-                    local_identifier: xxx
-                    entity_type: product
-                    product_type: literature
-                    titles :
-                      "en": ["The FAIR Guiding Principles for scientific data management and stewardship"]
-                    abstracts :
-                      "en": ["There is an urgent need to improve the infrastructure supporting the reuse of scholarly data. A diverse set of stakeholders—representing academia, industry, funding agencies, and scholarly publishers—have come together to design and jointly endorse a concise and measureable set of principles that we refer to as the FAIR Data Principles"]
-                    identifiers:
-                      - value: "10.1038/sdata.2016.18"
-                        scheme: "doi"
-                      - value: "26978244"
-                        scheme: "pmid"
-                    contributions:
-                      - contribution: "writing – original draft"
-                        role: "author"
-                        rank: 1
-                        by:
-                          name: "Mark Wilkinson"
-                          given_name: "Mark"
-                          family_name: "Wilkinson"
-                          identifiers:
-                          - value: "0000-0001-6960-357X"
-                            scheme: "orcid"
-                          local_identifier: "614a6575-5d6c-416c-a8e1-f49a5d589bf8"
-                          entity_type: "person"
-                        declared_affiliations:
-                          - name: "Center for Plant Biotechnology and Genomics, Universidad Politécnica de Madrid, Madrid, 28223, Spain"
-                            local_identifier: "32bc66c6-38be-4d5f-85db-d44c9f86921f"
-                            entity_type: "organisation"
-                            country: "ES"
-                    manifestations:
-                      - type:
-                          labels:
-                            en: localtypey
-                          defined_in: http://www.example.com/types/onto
-                          class: http://www.example.com/types/onto/localtypemethodology
-                        biblio:
-                          hosting_data_source:
-                            local_identifier: 6f368a3a-b1cf-498f-b2de-27135d1e0075
-                            entity_type: datasource
-                            name: "An Archive"
-                          in:
-                            name: "Scientific Data"
-                            acronym: "Sci Data"
-                            identifiers:
-                              - "value": "2052-4463"
-                                "scheme": "issn"
-                            local_identifier: "51f46bc1-00f8-42dd-8221-ac4deb52fb25"
-                            entity_type: "venue"
-                        dates: # http://api.crossref.org/works/10.1038/sdata.2016.18
-                          publication: "2016-03-15T00:00:00.0Z"
-                          deposit: "2023-01-04T12:47:12.0Z"
-                    related_products: {
-                        cites: [
-                          "614a6575-5d6c-416c-a8e1-f49a5d589bf8"
-                        ]
-                    }
+                    "@graph" :
+                      - local_identifier: xxx
+                        entity_type: product
+                        product_type: literature
+                        titles :
+                          "en": ["The FAIR Guiding Principles for scientific data management and stewardship"]
+                        abstracts :
+                          "en": ["There is an urgent need to improve the infrastructure supporting the reuse of scholarly data. A diverse set of stakeholders—representing academia, industry, funding agencies, and scholarly publishers—have come together to design and jointly endorse a concise and measureable set of principles that we refer to as the FAIR Data Principles"]
+                        identifiers:
+                          - value: "10.1038/sdata.2016.18"
+                            scheme: "doi"
+                          - value: "26978244"
+                            scheme: "pmid"
+                        contributions:
+                          - contribution: "writing – original draft"
+                            role: "author"
+                            rank: 1
+                            by:
+                              name: "Mark Wilkinson"
+                              given_name: "Mark"
+                              family_name: "Wilkinson"
+                              identifiers:
+                              - value: "0000-0001-6960-357X"
+                                scheme: "orcid"
+                              local_identifier: "614a6575-5d6c-416c-a8e1-f49a5d589bf8"
+                              entity_type: "person"
+                            declared_affiliations:
+                              - name: "Center for Plant Biotechnology and Genomics, Universidad Politécnica de Madrid, Madrid, 28223, Spain"
+                                local_identifier: "32bc66c6-38be-4d5f-85db-d44c9f86921f"
+                                entity_type: "organisation"
+                                country: "ES"
+                        manifestations:
+                          - type:
+                              labels:
+                                en: localtypey
+                              defined_in: http://www.example.com/types/onto
+                              class: http://www.example.com/types/onto/localtypemethodology
+                            biblio:
+                              hosting_data_source:
+                                local_identifier: 6f368a3a-b1cf-498f-b2de-27135d1e0075
+                                entity_type: datasource
+                                name: "An Archive"
+                              in:
+                                name: "Scientific Data"
+                                acronym: "Sci Data"
+                                identifiers:
+                                  - "value": "2052-4463"
+                                    "scheme": "issn"
+                                local_identifier: "51f46bc1-00f8-42dd-8221-ac4deb52fb25"
+                                entity_type: "venue"
+                            dates: # http://api.crossref.org/works/10.1038/sdata.2016.18
+                              publication: "2016-03-15T00:00:00.0Z"
+                              deposit: "2023-01-04T12:47:12.0Z"
+                        related_products:
+                          cites:
+                            - "614a6575-5d6c-416c-a8e1-f49a5d589bf8"
+
                 DatasetEx02:
                   summary: "Dataset - OpenAIRE Graph dataset new collected projects"
                   value :
@@ -146,18 +149,19 @@ paths:
                       "https://w3id.org/skg-if/context/1.0.1/skg-if.json",
                       {"@base" : "http://example.com/"}
                     ]
-                    local_identifier: yyy
-                    entity_type: product
-                    product_type: research data
-                    titles :
-                      "en": ["OpenAIRE Graph dataset - new collected projects"]
-                    abstracts :
-                      "en": ["The dataset includes metadata about projects grants collected by OpenAIRE since October 2024."]
-                    identifiers:
-                      - value: "10.5281/zenodo.14622592"
-                        scheme: "doi"
-                      - value: "W4393781519"
-                        scheme: "openalex"
+                    "@graph" :
+                      - local_identifier: yyy
+                        entity_type: product
+                        product_type: research data
+                        titles :
+                          "en": ["OpenAIRE Graph dataset - new collected projects"]
+                        abstracts :
+                          "en": ["The dataset includes metadata about projects grants collected by OpenAIRE since October 2024."]
+                        identifiers:
+                          - value: "10.5281/zenodo.14622592"
+                            scheme: "doi"
+                          - value: "W4393781519"
+                            scheme: "openalex"
   '/products':
     get:
       tags:
@@ -314,7 +318,10 @@ paths:
               schema:
                 allOf:
                   - $ref: "#/components/schemas/JsonLdCtx"
-                  - $ref: "#/components/schemas/Person"
+                "@graph":
+                  type: array
+                  items:
+                    - $ref: "#/components/schemas/Person"
               examples:
                 PersonEx01:
                   summary: a single person
@@ -323,14 +330,15 @@ paths:
                       "https://w3id.org/skg-if/context/1.0.1/skg-if.json",
                       {"@base" : "http://example.com/"}
                     ]
-                    local_identifier: xxx
-                    entity_type: "person"
-                    identifiers:
-                      - scheme: orcid
-                        value: 0000-0002-1825-0097
-                    given_name: "Josiah"
-                    family_name: "Carberry"
-                    name: "Josiah Carberry"
+                    "@graph" :
+                      - local_identifier: xxx
+                        entity_type: "person"
+                        identifiers:
+                          - scheme: orcid
+                            value: 0000-0002-1825-0097
+                        given_name: "Josiah"
+                        family_name: "Carberry"
+                        name: "Josiah Carberry"
   '/persons':
     get:
       tags:
@@ -431,7 +439,10 @@ paths:
               schema:
                 allOf:
                   - $ref: "#/components/schemas/JsonLdCtx"
-                  - $ref: "#/components/schemas/Organisation"
+                "@graph":
+                  type: array
+                  items:
+                    - $ref: "#/components/schemas/Organisation"
   '/organisations':
     get:
       tags:
@@ -505,7 +516,10 @@ paths:
               schema:
                 allOf:
                   - $ref: "#/components/schemas/JsonLdCtx"
-                  - $ref: "#/components/schemas/Grant"
+                "@graph":
+                  type: array
+                  items:
+                    - $ref: "#/components/schemas/Grant"
   '/grants':
     get:
       tags:
@@ -616,7 +630,10 @@ paths:
               schema:
                 allOf:
                   - $ref: "#/components/schemas/JsonLdCtx"
-                  - $ref: "#/components/schemas/Venue"
+                "@graph":
+                  type: array
+                  items:
+                    - $ref: "#/components/schemas/Venue"
   '/venues':
     get:
       tags:
@@ -679,6 +696,9 @@ paths:
               schema:
                 allOf:
                   - $ref: "#/components/schemas/JsonLdCtx"
+                "@graph":
+                  type: array
+                  items:
                   - $ref: "#/components/schemas/Topic"
   '/topics':
     get:
@@ -739,7 +759,10 @@ paths:
               schema:
                 allOf:
                   - $ref: "#/components/schemas/JsonLdCtx"
-                  - $ref: "#/components/schemas/DataSource"
+                "@graph":
+                  type: array
+                  items:
+                    - $ref: "#/components/schemas/DataSource"
   '/datasources':
     get:
       tags:
