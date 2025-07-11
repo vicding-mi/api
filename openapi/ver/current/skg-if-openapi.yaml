@@ -593,7 +593,7 @@ paths:
           - Venue
       summary: Get venue by id
       description: |
-          Get single `venue`. See definition in SKG-IF [Grant](https://skg-if.github.io/interoperability-framework/docs/venue.html) ( entity_type:venue ).
+          Get single `venue`. See definition in SKG-IF [Venue](https://skg-if.github.io/interoperability-framework/docs/venue.html) ( entity_type:venue ).
       operationId: getVenueById
       parameters:
         - $ref : '#/components/parameters/localIdPathParam'
@@ -716,7 +716,7 @@ paths:
           - Data Source
       summary: Get datasource by id
       description: |
-          Get single `datasource`. See definition in SKG-IF [Grant](https://skg-if.github.io/interoperability-framework/docs/data-source.html) ( entity_type:datasource ).
+          Get single `datasource`. See definition in SKG-IF [Data Source](https://skg-if.github.io/interoperability-framework/docs/data-source.html) ( entity_type:datasource ).
       operationId: getDataSourceById
       parameters:
         - $ref : '#/components/parameters/localIdPathParam'
@@ -919,7 +919,7 @@ components:
               scheme: "doi"
             - value: "26978244"
               scheme: "pmid"
-              contributions:
+          contributions:
                       - contribution: "writing – original draft"
                         role: "author"
                         rank: 1
@@ -937,7 +937,7 @@ components:
                             local_identifier: "32bc66c6-38be-4d5f-85db-d44c9f86921f"
                             entity_type: "organisation"
                             country: "ES"
-              manifestations:
+          manifestations:
                       - type:
                           labels:
                             en: localtypey
@@ -959,11 +959,11 @@ components:
                         dates: # http://api.crossref.org/works/10.1038/sdata.2016.18
                           publication: "2016-03-15T00:00:00.0Z"
                           deposit: "2023-01-04T12:47:12.0Z"
-              related_products: {
-                  cites: [
-                    "614a6575-5d6c-416c-a8e1-f49a5d589bf8"
-                  ]
-              }
+          related_products: {
+              cites: [
+                "614a6575-5d6c-416c-a8e1-f49a5d589bf8"
+              ]
+          }
     ProductContribution:
       type: object
       title: 'ProductContribution'
@@ -1312,6 +1312,8 @@ components:
             website:
               type: string
               description: The website URL for an Organisation
+              examples:
+                - "https://www.brown.edu/"
             country:
               type: string
               description: The country code expressed as [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
@@ -1382,7 +1384,7 @@ components:
             - scheme: orcid
               value: 0000-0002-1825-0097
           given_name: Josiah
-          family_name: Josiah
+          family_name: Carberry
           name: Josiah Carberry
           affiliations:
             role: affiliate
@@ -1521,6 +1523,11 @@ components:
             funded_amount:
               type: integer
               description: "Amount funded for the `grant`"
+            keywords:
+              description:  "keywords for the `grant`"
+              type: array
+              items:
+                type: string
             duration :
               type: object
               description : "The duration of the `grant`"
@@ -1531,16 +1538,18 @@ components:
                   format: date-time
                   description: The start datetime of the Grant. The string should be compliant with the ISO 8601 datetime string.
                   examples:
-                    - "2023-01-01T00:00:00"
+                    - "2023-01-01T00:00:00Z"
                 end:
                   type: string
                   format: date-time
                   description: The end datetime of the Grant. The string should be compliant with the ISO 8601 datetime string.
                   examples:
-                    - "2025-12-31T23:59:59"
+                    - "2025-12-31T23:59:59Z"
             website:
               type: string
               description: The website URL for the `grant`
+              examples:
+                - "https://graspos.eu"
             beneficiaries:
               description: "List of `organisation` funded by the `grant`"
               type: array
@@ -1571,18 +1580,20 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Organisation'
-        role:
+        roles:
           description: |
-            The role of `person` or `organisation` had in a `grant`.\
+            The roles that a `person` or `organisation` had in a `grant`.\
             Each element in the list is a String compliant with the [SCoRO](https://sparontologies.github.io/scoro/current/scoro.html#http://purl.org/spar/scoro/ProjectRole) taxonomy.
-          type: string
-          enum:
-            - "co-applicant"
-            - "lead applicant"
-            - "project leader"
-            - "project manager"
-            - "project member"
-            - "workpackage leader"
+          type: array
+          items:
+            type: string
+            enum:
+              - "co-applicant"
+              - "lead applicant"
+              - "project leader"
+              - "project manager"
+              - "project member"
+              - "workpackage leader"
     GrantLite:
       type: object
       title: 'GrantLite'
@@ -1623,35 +1634,16 @@ components:
                 fake : ['{{internet.url}}/grant/{{random.alphaNumeric(8)}}']
               examples:
                 - "101095129"
-            titles:
-              type: object
-              description: |
-                The titles of a `grant` (multiple for multilinguism).\
-                The object is a dictionary, the keys represent language codes following [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1).\
-                The special key `none` is reserved whenever the information about the language is not available or cannot be shared.
-              # Warn patternProperties, display does not work with vscode-openapi-viewer vscode extension, but compatible in stoplight.io web viewer.
-              patternProperties:
-                "^([a-z]{2}|none)$":
-                  type: array
-                  items:
-                    type: string
-                    x-faker:
-                       random.words: [ 5 ]
-                  examples:
-                    - ["GraspOS: next Generation Research Assessment to Promote Open Science"]
-            abstracts:
-              type: object
-              description: |
-                The abstracts of a `grant` (multiple for multilinguism).\
-                The object is a dictionary, the keys represent language codes following [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1).\
-                The special key `none` is reserved whenever the information about the language is not available or cannot be shared.
-              patternProperties:
-                "^([a-z]{2}|none)$":
-                  type: array
-                  items:
-                    type: string
-                    x-faker:
-                       random.words: [ 20 ]
+            title:
+              type: string
+              description: "The title of a `grant`"
+              examples:
+                - "GraspOS: next Generation Research Assessment to Promote Open Science"
+            abstract:
+              type: string
+              description: "The title of a `grant`"
+              examples:
+                - "GraspOS aims to build and operate a data infrastructure to support the policy reforms and pave the way towards a responsible research assessment system."
             acronym:
               type: string
               x-faker:
@@ -1689,7 +1681,7 @@ components:
     VenueLite:
       type: object
       title: 'VenueLite'
-      description:  "`venue` object containing a limited set of fields. See definition in SKG-IF [Grant](https://skg-if.github.io/interoperability-framework/docs/venue.html) ( entity_type:venue )."
+      description:  "`venue` object containing a limited set of fields. See definition in SKG-IF [Venue](https://skg-if.github.io/interoperability-framework/docs/venue.html) ( entity_type:venue )."
       allOf:
         - $ref: "#/components/schemas/Entity"
         - type: object
@@ -1726,10 +1718,16 @@ components:
                 fake : ['{{random.words(5)}} {{helpers.arrayElement(["Journal", "Catalog"])}}']
               examples:
                 - "Journal of Psychoceramics"
+            acronym:
+              type: string
+              x-faker:
+                random.alpha: [{count: 8, upcase: true}]
+              examples:
+                - "JPC"
     DataSource:
       type: object
       title: 'DataSource'
-      description:  "`datasource` object. See definition in SKG-IF [Grant](https://skg-if.github.io/interoperability-framework/docs/data-source.html) ( entity_type:datasource )."
+      description:  "`datasource` object. See definition in SKG-IF [Data Source](https://skg-if.github.io/interoperability-framework/docs/data-source.html) ( entity_type:datasource )."
       allOf:
         - $ref: "#/components/schemas/DataSourceLite"
         - type: object
@@ -1754,7 +1752,7 @@ components:
     DataSourceLite:
       type: object
       title: 'DataSourceLite'
-      description:  "`datasource` object containing a limited set of fields. See definition in SKG-IF [Grant](https://skg-if.github.io/interoperability-framework/docs/data-source.html) ( entity_type:datasource )."
+      description:  "`datasource` object containing a limited set of fields. See definition in SKG-IF [Data Source](https://skg-if.github.io/interoperability-framework/docs/data-source.html) ( entity_type:datasource )."
       allOf:
         - $ref: "#/components/schemas/Entity"
         - type: object
@@ -1785,10 +1783,6 @@ components:
               type: string
               x-faker:
                 fake : ['{{random.words(4)}} {{helpers.arrayElement(["Archive", "Repository", "Database"])}}']
-            acronym:
-              type: string
-              x-faker:
-                random.alpha: [{count: 8, upcase: true}]
     Entity:
       type: object
       description: "Entity common fields used for entities : `product`,`person`,`organisation`,`grant`,`venue`,`datasource`"
