@@ -174,7 +174,7 @@ paths:
       summary: Get list of product
       operationId: getProducts
       description: |
-          Get a list of `product`.
+          Get a list of `product`. See definition in SKG-IF [Research product](https://skg-if.github.io/interoperability-framework/docs/research-product.html) ( entity_type:product ).
 
           __Attribute filters__ \
           You can filter using these attributes of the `product` object. Exact match.
@@ -356,7 +356,7 @@ paths:
       summary: Get list of person
       operationId: getPersons
       description: |
-          Get a list of `person`.
+          Get a list of `person`. See definition in SKG-IF [Agent](https://skg-if.github.io/interoperability-framework/docs/agent.html) ( entity_type:person ) .
 
           __Attribute filters__ \
           You can filter using these attributes of the `person` object
@@ -462,10 +462,10 @@ paths:
     get:
       tags:
           - Organisation
-      summary: Get list of organisation
+      summary: Get list of organisation.
       operationId: getOrganisations
       description: |
-          Get a list of `organisation`.
+          Get a list of `organisation`. See definition in SKG-IF [Agent](https://skg-if.github.io/interoperability-framework/docs/agent.html) ( entity_type:organisation) .
 
           __Attribute filters__ \
           You can filter using these attributes of the `organisation` object
@@ -547,15 +547,13 @@ paths:
       summary: Get list of grant
       operationId: getGrants
       description: |
-          Get a list of `grant`.
+          Get a list of `grant`.  See definition in SKG-IF [Grant](https://skg-if.github.io/interoperability-framework/docs/grant.html) ( entity_type:grant )
 
           __Attribute filters__ \
-          You can filter using these attributes of the `datasource` object. Exact match.
+          You can filter using these attributes of the `grant` object. Exact match.
 
           | Filter key | Attribute filter example |
           | -------- | -------- |
-          | data_source_classification | `data_source_classification:repository` |
-          | research_product_type | `research_product_type:metadata` |
           | identifiers.scheme | `identifiers.scheme:doi` |
           | identifiers.value | `identifiers.value:10.3030/101095129` |
           | acronym | `acronym:CIKM` |
@@ -595,13 +593,13 @@ paths:
 
 
           __Convenience filters__ \
-          These filters aren't attributes of the `datasource` object, but they're handy for solving some common use cases.
+          These filters aren't attributes of the `grant` object, but they're handy for solving some common use cases.
 
           | Filter key | Filter value | List returned | Attribute filter example |
           | -------- | -------- | ------- | ------- |
-          | cf.search.name | a string | `datasource` with name containing the filter value | `cf.search.name:Management` |
-          | cf.search.titles | a string | `grant` with the `titles` property containing the specified keywords | `cf.search.titles:graspos |
-          | cf.search.abstracts | a string | `grant` with the `abstracts` property containing the specified keywords | `cf.search.abstracts:metrics` |
+          | cf.search.name | a string | `grant` with name containing the filter value | `cf.search.name:Management` |
+          | cf.search.title | a string | `grant` with the `title` property containing the specified keywords | `cf.search.title:graspos` |
+          | cf.search.abstract | a string | `grant` with the `abstract` property containing the specified keywords | `cf.search.abstract:metrics` |
           | cf.funded_amount.from | a number | `grant` with a funded amount greater than or equal to the specified value. | `cf.funded_amount.from:1000000` |
           | cf.funded_amount.to | a number | `grant` with a funded amount less than or equal to the specified value. | `cf.funded_amount.to:2000000` |
           | cf.duration.start.from | a ISO 8601 datetime string | `grant` with a start date on or after the specified date.| `cf.funded_amount.from:2023-01-01T00:00:00` |
@@ -661,7 +659,8 @@ paths:
       summary: Get list of venue
       operationId: getVenues
       description: |
-          Get a list of `venue`.
+          Get a list of `venue`. See definition in SKG-IF [Venue](https://skg-if.github.io/interoperability-framework/docs/venue.html) ( entity_type:venue ).
+
           __Attribute filters__ \
           You can filter using these attributes of the `venue` object. Exact match.
 
@@ -732,7 +731,8 @@ paths:
       summary: Get list of topic
       operationId: getTopics
       description: |
-          Get a list of `topic`.
+          Get a list of `topic`. See definition in SKG-IF [Topic](https://skg-if.github.io/interoperability-framework/docs/topic.html) ( entity_type:topic ).
+
           __Attribute filters__ \
           You can filter using these attributes of the `topic` object. Exact match.
 
@@ -800,7 +800,8 @@ paths:
       summary: Get list of datasource
       operationId: getDataSources
       description: |
-          Get a list of `datasource`.
+          Get a list of `datasource`. See definition in SKG-IF [Data Source](https://skg-if.github.io/interoperability-framework/docs/data-source.html) ( entity_type:datasource ).
+
           __Attribute filters__ \
           You can filter using these attributes of the `datasource` object. Exact match.
 
