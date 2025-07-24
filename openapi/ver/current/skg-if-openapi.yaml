@@ -216,9 +216,9 @@ paths:
 
           __Query parameter syntax examples__ \
 
-           * `?filter=product_type:literature,identifiers.id:10.1038/sdata.2016.18`
-           * `?filter=cf.search.title:ocean`
-           * `?filter=cf.contributions_orcid:0000-0002-1825-0097`
+           * `/products?filter=product_type:literature,identifiers.id:10.1038/sdata.2016.18`
+           * `/products?filter=cf.search.title:ocean`
+           * `/products?filter=cf.contributions_orcid:0000-0002-1825-0097`
 
           <!-- theme: warning  -->
           > #### Filter error
@@ -228,8 +228,7 @@ paths:
         - name: filter
           in: query
           description: |
-                Search filter. Format : coma separated.
-                Query parameter examples : `?filter=cf.search.title:ocean` or `?filter=product_type:literature,identifiers.id:10.1038/sdata.2016.18`
+                Search filter. Format : Coma separated key:value elements ( key1:value1,key2:value2,key2:value2 ). Server side operator used is _AND_.
           schema:
             type: string
             pattern: '^(,?.+:.+)*$'
@@ -380,7 +379,13 @@ paths:
           | cf.search.name | a string | `person` with name containing the filter value | `cf.search.name:Josiah` |
 
       parameters:
-        - $ref : '#/components/parameters/filterQueryParam'
+        - name: filter
+          in: query
+          description: |
+                Search filter. Format : Coma separated key:value elements ( key1:value1,key2:value2,key2:value2 ). Server side operator used is _AND_.
+          schema:
+            type: string
+            pattern: '^(,?.+:.+)*$'
           examples :
             orcid_ex:
               value: identifiers.scheme:orcid,identifiers.id:0000-0002-1825-0097
@@ -608,7 +613,13 @@ paths:
 
 
       parameters:
-        - $ref : '#/components/parameters/filterQueryParam'
+        - name: filter
+          in: query
+          description: |
+                Search filter. Format : Coma separated key:value elements ( key1:value1,key2:value2,key2:value2 ). Server side operator used is _AND_.
+          schema:
+            type: string
+            pattern: '^(,?.+:.+)*$'
       responses:
         '200':
           description: Success
@@ -747,9 +758,30 @@ paths:
           | Filter key | Filter value | List returned | Attribute filter example |
           | -------- | -------- | ------- | ------- |
           | cf.search.labels | a string | `topic` with label containing the filter value | `cf.search.labels:Solar` |
+          | cf.search.language | a string | `topic` with language key equals to the filter value | `cf.search.language:en` |
+
+
+           __Query parameter syntax examples__ \
+
+           * `/topics?filter=cf.search.labels:Solar`
+           * `/topics?filter=cf.search.labels:Solar,cf.search.language:en`
+           * `/topics?filter=cf.search.labels:Solar,cf.search.language:en&page=1&page_size=5`
 
       parameters:
-        - $ref : '#/components/parameters/filterQueryParam'
+        - name: filter
+          in: query
+          description: |
+                Search filter. Format : Coma separated key:value elements ( key1:value1,key2:value2,key2:value2 ). Server side operator used is _AND_.
+          schema:
+            type: string
+            pattern: '^(,?.+:.+)*$'
+          examples : # note example with parameter $ref. OK on Redoc, KO on stoplight
+            topic_label_ex :
+              value: cf.search.labels:Solar
+              summary : search label containing `Solar`
+            topic_label_lang_ex :
+              value: cf.search.labels:Solar,cf.search.language:en
+              summary : search english label containing `Solar`
       responses:
         '200':
           description: Success
@@ -866,7 +898,7 @@ components:
       name: filter
       in: query
       description: |
-            Search filter. Format : coma separated rules
+            Search filter. Format : Coma separated key:value elements ( key1:value1,key2:value2,key2:value2 ). Server side operator used is _AND_.
       schema:
         type: string
         pattern: '^(,?.+:.+)*$'
@@ -1585,9 +1617,9 @@ components:
                   value:
                     type: string
                     examples:
-                      - https://www.wikidata.org/wiki/Q42
+                      - https://www.wikidata.org/wiki/Q21198
                     x-faker:
-                      fake : ['{{internet.url}}/{{random.alphaNumeric(6)}}']
+                      fake : ['{{internet.url}}/topic_{{random.alphaNumeric(6)}}']
             labels:
               type: object
               description:  The labels describing a Topic (multiple for multilingualism). The object is a dictionary, the keys represent language codes following ISO 639-1 (`en`, `es`, `it`, `fr`...). The special key `none` is reserved whenever the information about the language is not available or cannot be shared.
@@ -1596,6 +1628,9 @@ components:
                   type: string
                   x-faker:
                     random.words: [1]
+              example: # 'object' type only supports single value 'example' ( not 'examples' ) https://swagger.io/docs/specification/v3_0/adding-examples/
+                en: "Computer Science"
+                it: "Informatica"
     Grant:
       type: object
       title: 'Grant'
