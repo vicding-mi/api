@@ -174,7 +174,7 @@ paths:
       summary: Get list of product
       operationId: getProducts
       description: |
-          Get a list of `product`.
+          Get a list of `product`. See definition in SKG-IF [Research product](https://skg-if.github.io/interoperability-framework/docs/research-product.html) ( entity_type:product ).
 
           __Attribute filters__ \
           You can filter using these attributes of the `product` object. Exact match.
@@ -216,9 +216,10 @@ paths:
 
           __Query parameter syntax examples__ \
 
-           * `?filter=product_type:literature,identifiers.id:10.1038/sdata.2016.18`
-           * `?filter=cf.search.title:ocean`
-           * `?filter=cf.contributions_orcid:0000-0002-1825-0097`
+           * `/products?filter=product_type:literature,identifiers.id:10.1038/sdata.2016.18`
+           * `/products?filter=cf.search.title:ocean`
+           * `/products?filter=cf.contributions_orcid:0000-0002-1825-0097`
+           * `/products?filter=cf.search.title:ocean&page=1&page_size=5`
 
           <!-- theme: warning  -->
           > #### Filter error
@@ -228,15 +229,14 @@ paths:
         - name: filter
           in: query
           description: |
-                Search filter. Format : coma separated.
-                Query parameter examples : `?filter=cf.search.title:ocean` or `?filter=product_type:literature,identifiers.id:10.1038/sdata.2016.18`
+                Search filter. Format : Coma separated key:value elements ( key1:value1,key2:value2,key2:value2 ). Server side operator used is _AND_.
           schema:
             type: string
             pattern: '^(,?.+:.+)*$'
           examples : # note example with parameter $ref. OK on Redoc, KO on stoplight
             product_type_lit_ex :
               value: product_type:literature
-              summary : search product by type 'literature'
+              summary : Get all product with type 'literature'
             id_orcid_ex:
               value: contributions.person.identifiers.id:0000-0002-1825-0097
               summary : Get all product with author with identifier id '0000-0002-1825-0097'
@@ -246,6 +246,8 @@ paths:
             title_ex :
               value: cf.search.title:ocean
               summary : search product which title contains 'ocean'
+        - $ref : '#/components/parameters/pageQueryParam'
+        - $ref : '#/components/parameters/pageSizeQueryParam'
       responses:
         '200':
           description: Success
@@ -356,7 +358,7 @@ paths:
       summary: Get list of person
       operationId: getPersons
       description: |
-          Get a list of `person`.
+          Get a list of `person`. See definition in SKG-IF [Agent](https://skg-if.github.io/interoperability-framework/docs/agent.html) ( entity_type:person ) .
 
           __Attribute filters__ \
           You can filter using these attributes of the `person` object
@@ -377,14 +379,30 @@ paths:
 
           | Filter key | Filter value | List returned | Attribute filter example |
           | -------- | -------- | ------- | ------- |
-          | cf.search.name | a string | `person` with name containing the filter value | `cf.search.name:Josiah` |
+          | cf.search.family_name | a string | `person` with family_name containing the filter value | `cf.search.family_name:Carberry` |
+          | cf.search.given_name | a string | `person` with given_name containing the filter value | `cf.search.given_name:Jos` |
+
+          __Query parameter syntax examples__ \
+
+          * `/persons?filter=identifiers.scheme:orcid,identifiers.id:0000-0002-1825-0097`
+          * `/persons?filter=cf.search.family_name:Carberry,cf.search.given_name:Jos`
+          * `/persons?filter=cf.search.family_name:Carberry`
+          * `/persons?filter=cf.search.family_name:Carberry&page=1&page_size=5`
 
       parameters:
-        - $ref : '#/components/parameters/filterQueryParam'
+        - name: filter
+          in: query
+          description: |
+                Search filter. Format : Coma separated key:value elements ( key1:value1,key2:value2,key2:value2 ). Server side operator used is _AND_.
+          schema:
+            type: string
+            pattern: '^(,?.+:.+)*$'
           examples :
             orcid_ex:
               value: identifiers.scheme:orcid,identifiers.id:0000-0002-1825-0097
-              summary : List of person with identifier scheme 'orcid' and id '0000-0002-1825-0097'
+              summary: Get all person with identifier scheme 'orcid' and id '0000-0002-1825-0097'
+        - $ref : '#/components/parameters/pageQueryParam'
+        - $ref : '#/components/parameters/pageSizeQueryParam'
       responses:
         '200':
           description: Success
@@ -462,10 +480,10 @@ paths:
     get:
       tags:
           - Organisation
-      summary: Get list of organisation
+      summary: Get list of organisation.
       operationId: getOrganisations
       description: |
-          Get a list of `organisation`.
+          Get a list of `organisation`. See definition in SKG-IF [Agent](https://skg-if.github.io/interoperability-framework/docs/agent.html) ( entity_type:organisation) .
 
           __Attribute filters__ \
           You can filter using these attributes of the `organisation` object
@@ -485,6 +503,11 @@ paths:
           | -------- | -------- | ------- | ------- |
           | cf.search.name | a string | `organisation` with name containing the filter value | `cf.search.name:Brown` |
 
+          __Query parameter syntax examples__ \
+
+           * `/organisations?filter=identifiers.scheme:ror,identifiers.id:05gq02987`
+           * `/organisations?filter=cf.search.name:Brown`
+           * `/organisations?filter=cf.search.name:Brown&page=1&page_size=5`
 
       parameters:
         - name: filter
@@ -494,9 +517,14 @@ paths:
             rorid_ex:
               value: identifiers.scheme:ror,identifiers.id:05gq02987
               summary : Get all organisation with identifier scheme 'ror' and id '05gq02987'
+            name_ex:
+              value: cf.search.name:Brown
+              summary : Get all organisation with name containing 'Brown'
           schema:
             type: string
             pattern: '^(,?.+:.+)*$'
+        - $ref : '#/components/parameters/pageQueryParam'
+        - $ref : '#/components/parameters/pageSizeQueryParam'
       responses:
         '200':
           description: Success
@@ -547,15 +575,13 @@ paths:
       summary: Get list of grant
       operationId: getGrants
       description: |
-          Get a list of `grant`.
+          Get a list of `grant`.  See definition in SKG-IF [Grant](https://skg-if.github.io/interoperability-framework/docs/grant.html) ( entity_type:grant )
 
           __Attribute filters__ \
-          You can filter using these attributes of the `datasource` object. Exact match.
+          You can filter using these attributes of the `grant` object. Exact match.
 
           | Filter key | Attribute filter example |
           | -------- | -------- |
-          | data_source_classification | `data_source_classification:repository` |
-          | research_product_type | `research_product_type:metadata` |
           | identifiers.scheme | `identifiers.scheme:doi` |
           | identifiers.value | `identifiers.value:10.3030/101095129` |
           | acronym | `acronym:CIKM` |
@@ -595,13 +621,12 @@ paths:
 
 
           __Convenience filters__ \
-          These filters aren't attributes of the `datasource` object, but they're handy for solving some common use cases.
+          These filters aren't attributes of the `grant` object, but they're handy for solving some common use cases.
 
           | Filter key | Filter value | List returned | Attribute filter example |
           | -------- | -------- | ------- | ------- |
-          | cf.search.name | a string | `datasource` with name containing the filter value | `cf.search.name:Management` |
-          | cf.search.titles | a string | `grant` with the `titles` property containing the specified keywords | `cf.search.titles:graspos |
-          | cf.search.abstracts | a string | `grant` with the `abstracts` property containing the specified keywords | `cf.search.abstracts:metrics` |
+          | cf.search.title | a string | `grant` with the `title` property containing the specified value | `cf.search.title:GraspOS` |
+          | cf.search.title_abstract | a string | `grant` with the `title` or `abstract` property containing the specified value | `cf.search.title_abstract:GraspOS` |
           | cf.funded_amount.from | a number | `grant` with a funded amount greater than or equal to the specified value. | `cf.funded_amount.from:1000000` |
           | cf.funded_amount.to | a number | `grant` with a funded amount less than or equal to the specified value. | `cf.funded_amount.to:2000000` |
           | cf.duration.start.from | a ISO 8601 datetime string | `grant` with a start date on or after the specified date.| `cf.funded_amount.from:2023-01-01T00:00:00` |
@@ -609,8 +634,25 @@ paths:
           | cf.duration.end.from | a ISO 8601 datetime string | `grant` with an end date on or after the specified date. | `cf.duration.end.from:2025-12-31T23:59:59` |
 
 
+          __Query parameter syntax examples__ \
+
+           * `/grants?filter=cf.search.title:GraspOS`
+           * `/grants?filter=cf.search.title:GraspOS&page=1&page_size=5`
+
       parameters:
-        - $ref : '#/components/parameters/filterQueryParam'
+        - name: filter
+          in: query
+          description: |
+                Search filter. Format : Coma separated key:value elements ( key1:value1,key2:value2,key2:value2 ). Server side operator used is _AND_.
+          schema:
+            type: string
+            pattern: '^(,?.+:.+)*$'
+          examples : # note example with parameter $ref. OK on Redoc, KO on stoplight
+            grant_title_ex :
+              value: cf.search.title:GraspOS
+              summary: Get all grant with title containing `GraspOS`
+        - $ref : '#/components/parameters/pageQueryParam'
+        - $ref : '#/components/parameters/pageSizeQueryParam'
       responses:
         '200':
           description: Success
@@ -661,7 +703,8 @@ paths:
       summary: Get list of venue
       operationId: getVenues
       description: |
-          Get a list of `venue`.
+          Get a list of `venue`. See definition in SKG-IF [Venue](https://skg-if.github.io/interoperability-framework/docs/venue.html) ( entity_type:venue ).
+
           __Attribute filters__ \
           You can filter using these attributes of the `venue` object. Exact match.
 
@@ -681,7 +724,9 @@ paths:
           | cf.search.name | a string | `venue` with name containing the filter value | `cf.search.name:Psychoceramics` |
 
       parameters:
-        - $ref : '#/components/parameters/filterQueryParam'
+        - $ref : '#/components/parameters/filterQueryParam' #FIXME replace to add examples
+        - $ref : '#/components/parameters/pageQueryParam'
+        - $ref : '#/components/parameters/pageSizeQueryParam'
       responses:
         '200':
           description: Success
@@ -732,7 +777,8 @@ paths:
       summary: Get list of topic
       operationId: getTopics
       description: |
-          Get a list of `topic`.
+          Get a list of `topic`. See definition in SKG-IF [Topic](https://skg-if.github.io/interoperability-framework/docs/topic.html) ( entity_type:topic ).
+
           __Attribute filters__ \
           You can filter using these attributes of the `topic` object. Exact match.
 
@@ -747,9 +793,35 @@ paths:
           | Filter key | Filter value | List returned | Attribute filter example |
           | -------- | -------- | ------- | ------- |
           | cf.search.labels | a string | `topic` with label containing the filter value | `cf.search.labels:Solar` |
+          | cf.search.language | a string | `topic` with language key equals to the filter value | `cf.search.language:en` |
+
+           __Query parameter syntax examples__ \
+
+           * `/topics?filter=cf.search.labels:Solar,identifiers.scheme:myvocabulary`
+           * `/topics?filter=cf.search.labels:Solar`
+           * `/topics?filter=cf.search.labels:Solar,cf.search.language:en`
+           * `/topics?filter=cf.search.labels:Solar,cf.search.language:en&page=1&page_size=5`
 
       parameters:
-        - $ref : '#/components/parameters/filterQueryParam'
+        - name: filter
+          in: query
+          description: |
+                Search filter. Format : Coma separated key:value elements ( key1:value1,key2:value2,key2:value2 ). Server side operator used is _AND_.
+          schema:
+            type: string
+            pattern: '^(,?.+:.+)*$'
+          examples : # note example with parameter $ref. OK on Redoc, KO on stoplight
+            topic_label_ex:
+              value: cf.search.labels:Solar
+              summary: Get all topic with label containing 'Solar'
+            topic_label_lang_ex:
+              value: cf.search.labels:Solar,cf.search.language:en
+              summary: Get all topic with label containing 'Solar' and english
+            topic_label_vocab_ex:
+              value: cf.search.labels:Solar,identifiers.scheme:myvocabulary
+              summary: Get all topic with label containing 'Solar' in the scheme 'myvocabulary'
+        - $ref : '#/components/parameters/pageQueryParam'
+        - $ref : '#/components/parameters/pageSizeQueryParam'
       responses:
         '200':
           description: Success
@@ -800,7 +872,8 @@ paths:
       summary: Get list of datasource
       operationId: getDataSources
       description: |
-          Get a list of `datasource`.
+          Get a list of `datasource`. See definition in SKG-IF [Data Source](https://skg-if.github.io/interoperability-framework/docs/data-source.html) ( entity_type:datasource ).
+
           __Attribute filters__ \
           You can filter using these attributes of the `datasource` object. Exact match.
 
@@ -820,7 +893,9 @@ paths:
           | cf.search.name | a string | `datasource` with name containing the filter value | `cf.search.name:Management` |
 
       parameters:
-        - $ref : '#/components/parameters/filterQueryParam'
+        - $ref : '#/components/parameters/filterQueryParam' #FIXME replace to add examples
+        - $ref : '#/components/parameters/pageQueryParam'
+        - $ref : '#/components/parameters/pageSizeQueryParam'
       responses:
         '200':
           description: Success
@@ -865,10 +940,24 @@ components:
       name: filter
       in: query
       description: |
-            Search filter. Format : coma separated rules
+            Search filter. Format : Coma separated key:value elements ( key1:value1,key2:value2,key2:value2 ). Server side operator used is _AND_.
       schema:
         type: string
         pattern: '^(,?.+:.+)*$'
+    pageQueryParam:
+      name: page
+      in: query
+      description: |
+            Search page number.
+      schema:
+        type: integer
+    pageSizeQueryParam:
+      name: page_size
+      in: query
+      description: |
+            Search page size.
+      schema:
+        type: integer
   schemas:
     Product:
       type: object
@@ -1584,9 +1673,9 @@ components:
                   value:
                     type: string
                     examples:
-                      - https://www.wikidata.org/wiki/Q42
+                      - https://www.wikidata.org/wiki/Q21198
                     x-faker:
-                      fake : ['{{internet.url}}/{{random.alphaNumeric(6)}}']
+                      fake : ['{{internet.url}}/topic_{{random.alphaNumeric(6)}}']
             labels:
               type: object
               description:  The labels describing a Topic (multiple for multilingualism). The object is a dictionary, the keys represent language codes following ISO 639-1 (`en`, `es`, `it`, `fr`...). The special key `none` is reserved whenever the information about the language is not available or cannot be shared.
@@ -1595,6 +1684,9 @@ components:
                   type: string
                   x-faker:
                     random.words: [1]
+              example: # 'object' type only supports single value 'example' ( not 'examples' ) https://swagger.io/docs/specification/v3_0/adding-examples/
+                en: "Computer Science"
+                it: "Informatica"
     Grant:
       type: object
       title: 'Grant'
