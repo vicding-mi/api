@@ -229,7 +229,7 @@ paths:
         - name: filter
           in: query
           description: |
-                Search filter. Format : Coma separated key:value elements ( key1:value1,key2:value2,key2:value2 ). Server side operator used is _AND_.
+                Search filter. Format : Coma separated key:value elements ( key1:value1,key2:value2,key3:value3 ). Server side operator used is _AND_.
           schema:
             type: string
             pattern: '^(,?.+:.+)*$'
@@ -381,6 +381,7 @@ paths:
           | -------- | -------- | ------- | ------- |
           | cf.search.family_name | a string | `person` with family_name containing the filter value | `cf.search.family_name:Carberry` |
           | cf.search.given_name | a string | `person` with given_name containing the filter value | `cf.search.given_name:Jos` |
+          | cf.search.name | a string | `person` with name containing the filter value | `cf.search.name:Carberry` |
 
           __Query parameter syntax examples__ \
 
@@ -393,7 +394,7 @@ paths:
         - name: filter
           in: query
           description: |
-                Search filter. Format : Coma separated key:value elements ( key1:value1,key2:value2,key2:value2 ). Server side operator used is _AND_.
+                Search filter. Format : Coma separated key:value elements ( key1:value1,key2:value2,key3:value3 ). Server side operator used is _AND_.
           schema:
             type: string
             pattern: '^(,?.+:.+)*$'
@@ -643,7 +644,7 @@ paths:
         - name: filter
           in: query
           description: |
-                Search filter. Format : Coma separated key:value elements ( key1:value1,key2:value2,key2:value2 ). Server side operator used is _AND_.
+                Search filter. Format : Coma separated key:value elements ( key1:value1,key2:value2,key3:value3 ). Server side operator used is _AND_.
           schema:
             type: string
             pattern: '^(,?.+:.+)*$'
@@ -806,7 +807,7 @@ paths:
         - name: filter
           in: query
           description: |
-                Search filter. Format : Coma separated key:value elements ( key1:value1,key2:value2,key2:value2 ). Server side operator used is _AND_.
+                Search filter. Format : Coma separated key:value elements ( key1:value1,key2:value2,key3:value3 ). Server side operator used is _AND_.
           schema:
             type: string
             pattern: '^(,?.+:.+)*$'
@@ -940,7 +941,7 @@ components:
       name: filter
       in: query
       description: |
-            Search filter. Format : Coma separated key:value elements ( key1:value1,key2:value2,key2:value2 ). Server side operator used is _AND_.
+            Search filter. Format : Coma separated key:value elements ( key1:value1,key2:value3,key:value3 ). Server side operator used is _AND_.
       schema:
         type: string
         pattern: '^(,?.+:.+)*$'
