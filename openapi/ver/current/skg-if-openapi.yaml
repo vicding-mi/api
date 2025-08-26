@@ -141,8 +141,13 @@ paths:
                                 local_identifier: "51f46bc1-00f8-42dd-8221-ac4deb52fb25"
                                 entity_type: "venue"
                             dates: # http://api.crossref.org/works/10.1038/sdata.2016.18
-                              publication: "2016-03-15T00:00:00.0Z"
-                              deposit: "2023-01-04T12:47:12.0Z"
+                              publication:
+                                - "2016-03-15"
+                              collected:
+                                - "2013"
+                                - "2014"
+                              deposit:
+                                - "2023-01-04"
                         related_products:
                           cites:
                             - "614a6575-5d6c-416c-a8e1-f49a5d589bf8"
@@ -630,9 +635,9 @@ paths:
           | cf.search.title_abstract | a string | `grant` with the `title` or `abstract` property containing the specified value | `cf.search.title_abstract:GraspOS` |
           | cf.funded_amount.from | a number | `grant` with a funded amount greater than or equal to the specified value. | `cf.funded_amount.from:1000000` |
           | cf.funded_amount.to | a number | `grant` with a funded amount less than or equal to the specified value. | `cf.funded_amount.to:2000000` |
-          | cf.duration.start.from | a ISO 8601 datetime string | `grant` with a start date on or after the specified date.| `cf.funded_amount.from:2023-01-01T00:00:00` |
-          | cf.duration.start.to | a ISO 8601 datetime string | `grant` with start date on or before the specified date. | `cf.duration.start.to:2023-01-01T00:00:00` |
-          | cf.duration.end.from | a ISO 8601 datetime string | `grant` with an end date on or after the specified date. | `cf.duration.end.from:2025-12-31T23:59:59` |
+          | cf.duration.start.from | a ISO 8601 datetime string | `grant` with a start date on or after the specified date.| `cf.funded_amount.from:2023-01-01` |
+          | cf.duration.start.to | a ISO 8601 datetime string | `grant` with start date on or before the specified date. | `cf.duration.start.to:2023-01-01` |
+          | cf.duration.end.from | a ISO 8601 datetime string | `grant` with an end date on or after the specified date. | `cf.duration.end.from:2025-12-31` |
 
 
           __Query parameter syntax examples__ \
@@ -1106,8 +1111,13 @@ components:
                             local_identifier: "51f46bc1-00f8-42dd-8221-ac4deb52fb25"
                             entity_type: "venue"
                         dates: # http://api.crossref.org/works/10.1038/sdata.2016.18
-                          publication: "2016-03-15T00:00:00.0Z"
-                          deposit: "2023-01-04T12:47:12.0Z"
+                          publication:
+                            - "2016-03-15"
+                          collected:
+                            - "2013"
+                            - "2014"
+                          deposit:
+                            - "2023-01-04"
           related_products: {
               cites: [
                 "614a6575-5d6c-416c-a8e1-f49a5d589bf8"
@@ -1205,55 +1215,70 @@ components:
                     - preprint
         dates:
           type: object
+          description: 'Manifestation dates. Format [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) compliant string.'
           properties:
             acceptance:
-              type: string
-              format: date-time
+              type: array
+              items:
+                type: string
             access:
-              type: string
-              format: date-time
+              type: array
+              items:
+                type: string
             collected:
-              type: string
-              format: date-time
+              type: array
+              items:
+                type: string
             copyright:
-              type: string
-              format: date-time
+              type: array
+              items:
+                type: string
             correction:
-              type: string
-              format: date-time
+              type: array
+              items:
+                type: string
             creation:
-              type: string
-              format: date-time
+              type: array
+              items:
+                type: string
             decision:
-              type: string
-              format: date-time
+              type: array
+              items:
+                type: string
             deposit:
-              type: string
-              format: date-time
+              type: array
+              items:
+                type: string
             distribution:
-              type: string
-              format: date-time
+              type: array
+              items:
+                type: string
             embargo:
-              type: string
-              format: date-time
+              type: array
+              items:
+                type: string
             modified:
-              type: string
-              format: date-time
+              type: array
+              items:
+                type: string
             publication:
-              type: string
-              format: date-time
+              type: array
+              items:
+                type: string
             received:
-              type: string
-              format: date-time
+              type: array
+              items:
+                type: string
             request:
               type: string
-              format: date-time
             retraction:
-              type: string
-              format: date-time
+              type: array
+              items:
+                type: string
             validity:
-              type: string
-              format: date-time
+              type: array
+              items:
+                type: string
         peer_review:
           description: 'Whether the manifestation has undergone a peer review. It must be specify only if information about peer reviewing exists'
           type: object
@@ -1552,10 +1577,10 @@ components:
                     properties :
                       start:
                         type: string
-                        format: date-time
+                        description: start date. Format [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) compliant string.'
                       end:
                         type: string
-                        format: date-time
+                        description: end date. Format [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) compliant string.'
       examples:
         - local_identifier: 'otf_session12324_person_1124'
           entity_type: 'person'
@@ -1568,8 +1593,8 @@ components:
           affiliations:
             role: affiliate
             period:
-              start: "2010-08-24T14:15:22Z"
-              end: "2020-08-24T14:15:22Z"
+              start: "2010-08-24"
+              end: "2020-08-24"
             affiliation:
               local_identifier: 'otf_session12324_org_1124'
               entity_type: 'organisation'
@@ -1722,16 +1747,14 @@ components:
               properties :
                 start:
                   type: string
-                  format: date-time
-                  description: The start datetime of the Grant. The string should be compliant with the ISO 8601 datetime string.
+                  description: The start date of the Grant. Format [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) compliant string.
                   examples:
-                    - "2023-01-01T00:00:00Z"
+                    - "2023-01-01"
                 end:
                   type: string
-                  format: date-time
-                  description: The end datetime of the Grant. The string should be compliant with the ISO 8601 datetime string.
+                  description: The end date of the Grant. Format [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) compliant string.
                   examples:
-                    - "2025-12-31T23:59:59Z"
+                    - "2025-12-31"
             website:
               type: string
               description: The website URL for the `grant`
