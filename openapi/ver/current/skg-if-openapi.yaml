@@ -104,7 +104,9 @@ paths:
                           - value: "26978244"
                             scheme: "pmid"
                         contributions:
-                          - contribution: "writing – original draft"
+                          - contribution_types:
+                              - "writing – original draft"
+                              - "conceptualization"
                             role: "author"
                             rank: 1
                             by:
@@ -1039,7 +1041,7 @@ components:
                   # TODO provenance ?
             contributions:
               type: array
-              description: List of objects describing a `person` or `organisatiion`, its role, contribution, rank, when working on the `product`.
+              description: List of objects describing a `person` or `organisation`, its role, contribution, rank, when working on the `product`.
               items:
                 $ref: '#/components/schemas/ProductContribution'
             manifestations:
@@ -1074,50 +1076,56 @@ components:
             - value: "26978244"
               scheme: "pmid"
           contributions:
-                      - contribution: "writing – original draft"
-                        role: "author"
-                        rank: 1
-                        by:
-                          name: "Mark Wilkinson"
-                          given_name: "Mark"
-                          family_name: "Wilkinson"
-                          identifiers:
-                          - value: "0000-0001-6960-357X"
-                            scheme: "orcid"
-                          local_identifier: "614a6575-5d6c-416c-a8e1-f49a5d589bf8"
-                          entity_type: "person"
-                        declared_affiliations:
-                          - name: "Center for Plant Biotechnology and Genomics, Universidad Politécnica de Madrid, Madrid, 28223, Spain"
-                            local_identifier: "32bc66c6-38be-4d5f-85db-d44c9f86921f"
-                            entity_type: "organisation"
-                            country: "ES"
+            - contribution_types:
+                - "writing – original draft"
+              role: "author"
+              rank: 1
+              by:
+                name: "Mark Wilkinson"
+                given_name: "Mark"
+                family_name: "Wilkinson"
+                identifiers:
+                - value: "0000-0001-6960-357X"
+                  scheme: "orcid"
+                local_identifier: "614a6575-5d6c-416c-a8e1-f49a5d589bf8"
+                entity_type: "person"
+              declared_affiliations:
+                - name: "Center for Plant Biotechnology and Genomics, Universidad Politécnica de Madrid, Madrid, 28223, Spain"
+                  local_identifier: "32bc66c6-38be-4d5f-85db-d44c9f86921f"
+                  entity_type: "organisation"
+                  country: "ES"
           manifestations:
-                      - type:
-                          labels:
-                            en: localtypey
-                          defined_in: http://www.example.com/types/onto
-                          class: http://www.example.com/types/onto/localtypemethodology
-                        biblio:
-                          hosting_data_source:
-                            local_identifier: 6f368a3a-b1cf-498f-b2de-27135d1e0075
-                            entity_type: datasource
-                            name: "An Archive"
-                          in:
-                            name: "Scientific Data"
-                            acronym: "Sci Data"
-                            identifiers:
-                              - "value": "2052-4463"
-                                "scheme": "issn"
-                            local_identifier: "51f46bc1-00f8-42dd-8221-ac4deb52fb25"
-                            entity_type: "venue"
-                        dates: # http://api.crossref.org/works/10.1038/sdata.2016.18
-                          publication:
-                            - "2016-03-15"
-                          collected:
-                            - "2013"
-                            - "2014"
-                          deposit:
-                            - "2023-01-04"
+            - type:
+                labels:
+                  en: localtypey
+                defined_in: http://www.example.com/types/onto
+                class: http://www.example.com/types/onto/localtypemethodology
+              biblio:
+                hosting_data_source:
+                  local_identifier: 6f368a3a-b1cf-498f-b2de-27135d1e0075
+                  entity_type: datasource
+                  name: "An Archive"
+                in:
+                  name: "Scientific Data"
+                  acronym: "Sci Data"
+                  identifiers:
+                    - "value": "2052-4463"
+                      "scheme": "issn"
+                  local_identifier: "51f46bc1-00f8-42dd-8221-ac4deb52fb25"
+                  entity_type: "venue"
+              dates: # http://api.crossref.org/works/10.1038/sdata.2016.18
+                publication:
+                  - "2016-03-15"
+                collected:
+                  - "2013"
+                  - "2014"
+                deposit:
+                  - "2023-01-04"
+          funding:
+            - local_identifier: "614a6575-5d6c-416c-a8e1-f49a5d58999"
+              entity_type: "grant"
+              titles:
+               - en: "EU grant ZZ"
           related_products: {
               cites: [
                 "614a6575-5d6c-416c-a8e1-f49a5d589bf8"
@@ -1156,26 +1164,28 @@ components:
             - "author"
             - "editor"
             - "publisher"
-        contribution:
+        contribution_types:
           description: |
             The contributions of `person` or `organisation` had in a `product`.\
             Each element in the list is a String compliant with the [CRediT](https://credit.niso.org/) taxonomy.
-          type: string
-          enum:
-            - "conceptualization"
-            - "data curation"
-            - "formal analysis"
-            - "funding acquisition"
-            - "investigation"
-            - "methodology"
-            - "project administration"
-            - "resources"
-            - "software"
-            - "supervision"
-            - "validation"
-            - "visualization"
-            - "writing – original draft"
-            - "writing – review & editing"
+          type: array
+          items:
+            type: string
+            enum:
+              - "conceptualization"
+              - "data curation"
+              - "formal analysis"
+              - "funding acquisition"
+              - "investigation"
+              - "methodology"
+              - "project administration"
+              - "resources"
+              - "software"
+              - "supervision"
+              - "validation"
+              - "visualization"
+              - "writing – original draft"
+              - "writing – review & editing"
     ProductManifestation:
       type: object
       title: 'ProductManifestation'
@@ -1512,8 +1522,7 @@ components:
               pattern: '^[A-Z]{2}$'
               examples:
                 - "US"
-            type:
-              # https://github.com/skg-if/interoperability-framework/issues/24
+            types:
               description:  "The types of an `organisation`."
               type: array
               items:
@@ -1538,6 +1547,8 @@ components:
           name: Brown University
           short_name: BU
           country: US
+          types:
+            - education
         - local_identifier: 'otf_session12325_org_1125'
           entity_type: 'organisation'
           identifiers:
@@ -1548,6 +1559,8 @@ components:
           name: John Carter Brown Library, Brown University, Providence RI, US
           short_name: BU
           country: US
+          types:
+            - archive
         - local_identifier: 'otf_session12325_org_1125'
           entity_type: 'organisation'
           name: Lab of science, unknown University, Antarctica
@@ -1852,16 +1865,32 @@ components:
                 fake : ['{{internet.url}}/grant/{{random.alphaNumeric(8)}}']
               examples:
                 - "101095129"
-            title:
-              type: string
-              description: "The title of a `grant`"
+            titles:
+              type: object
+              description: |
+                The titles of a `grant` (multiple for multilinguism).\
+                The object is a dictionary, the keys represent language codes following [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1).\
+                The special key `none` is reserved whenever the information about the language is not available or cannot be shared.
+              patternProperties:
+                "^([a-z]{2}|none)$":
+                  type: string
+                  x-faker:
+                    random.words: [ 5 ]
               examples:
-                - "GraspOS: next Generation Research Assessment to Promote Open Science"
-            abstract:
-              type: string
-              description: "The title of a `grant`"
+                - "en": "GraspOS: next Generation Research Assessment to Promote Open Science"
+            abstracts:
+              type: object
+              description: |
+                The abstracts of a `grant` (multiple for multilinguism).\
+                The object is a dictionary, the keys represent language codes following [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1).\
+                The special key `none` is reserved whenever the information about the language is not available or cannot be shared.
+              patternProperties:
+                "^([a-z]{2}|none)$":
+                  type: string
+                  x-faker:
+                    random.words: [ 5 ]
               examples:
-                - "GraspOS aims to build and operate a data infrastructure to support the policy reforms and pave the way towards a responsible research assessment system."
+                - "en": "GraspOS aims to build and operate a data infrastructure to support the policy reforms and pave the way towards a responsible research assessment system."
             acronym:
               type: string
               x-faker:
@@ -1966,14 +1995,15 @@ components:
               type : string
               description: "The specific type of a Data source, based on the vocabulary Data source Classification. It can be chosen among the following values"
               enum : [repository, aggregator, scientific database, journal archive, publisher archive, cris system]
-            research_product_type:
+            research_product_types:
               type: array
               description: "The types of entities managed by a Data source. Each item in the list should be compliant with the following terms"
               items:
                 type: string
                 enum : [metadata, research data, literature , software , any]
            #TODO disciplines
-           #TODO policy
+           #TODO policies
+           #TODO targets
     DataSourceLite:
       type: object
       title: 'DataSourceLite'

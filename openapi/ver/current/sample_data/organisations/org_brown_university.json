@@ -21,7 +21,7 @@
             ],
             "short_name": "BU",
             "country": "US",
-            "type": [
+            "types": [
                 "education"
             ]
         }
