@@ -17,14 +17,10 @@
             "entity_type": "grant",
             "grant_number": "101095129",
              "titles": {
-                "en": [
-                    "GraspOS: next Generation Research Assessment to Promote Open Science"
-                ]
+                "en": "GraspOS: next Generation Research Assessment to Promote Open Science"
             },
             "abstracts": {
-                "en": [
-                    "GraspOS aims to build and operate a data infrastructure to support the policy reforms..."
-                ]
+                "en": "GraspOS aims to build and operate a data infrastructure to support the policy reforms..."
             },
             "acronym": "GraspOS",
             "funding_agency": {
