@@ -107,7 +107,8 @@
                     "local_identifier": "614a6575-5d6c-416c-a8e1-f49a5d58999",
                     "entity_type": "grant",
                     "titles": {
-                        "en": "EU grant ZZ"
+                        "en": "The EU grant ZZ",
+                        "fr": "Le EU grant ZZ"
                     }
                 }
             ]

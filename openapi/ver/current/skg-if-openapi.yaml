@@ -1873,14 +1873,11 @@ components:
                 The special key `none` is reserved whenever the information about the language is not available or cannot be shared.
               patternProperties:
                 "^([a-z]{2}|none)$":
-                  type: array
-                  items:
-                    type: string
-                    x-faker:
-                       random.words: [ 5 ]
+                  type: string
+                  x-faker:
+                    random.words: [ 5 ]
               examples:
-                - "en":
-                  - "GraspOS: next Generation Research Assessment to Promote Open Science"
+                - "en": "GraspOS: next Generation Research Assessment to Promote Open Science"
             abstracts:
               type: object
               description: |
@@ -1889,14 +1886,11 @@ components:
                 The special key `none` is reserved whenever the information about the language is not available or cannot be shared.
               patternProperties:
                 "^([a-z]{2}|none)$":
-                  type: array
-                  items:
-                    type: string
-                    x-faker:
-                       random.words: [ 5 ]
+                  type: string
+                  x-faker:
+                    random.words: [ 5 ]
               examples:
-                - "en":
-                  - "GraspOS aims to build and operate a data infrastructure to support the policy reforms and pave the way towards a responsible research assessment system."
+                - "en": "GraspOS aims to build and operate a data infrastructure to support the policy reforms and pave the way towards a responsible research assessment system."
             acronym:
               type: string
               x-faker:
