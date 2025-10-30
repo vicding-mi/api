@@ -32,7 +32,9 @@
             ],
             "contributions": [
                 {
-                    "contribution": "writing – original draft",
+                    "contribution_types": [
+                        "writing – original draft"
+                    ],
                     "role": "author",
                     "rank": 1,
                     "by": {
@@ -97,6 +99,15 @@
                         "deposit": [
                             "2023-01-04T12:47:12.0Z"
                         ]
+                    }
+                }
+            ],
+            "funding": [
+                {
+                    "local_identifier": "614a6575-5d6c-416c-a8e1-f49a5d58999",
+                    "entity_type": "grant",
+                    "titles": {
+                        "en": "EU grant ZZ"
                     }
                 }
             ]
