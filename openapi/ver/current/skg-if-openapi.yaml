@@ -91,7 +91,7 @@ paths:
                       {"@base" : "https://w3id.org/skg-if/sandbox/myprov/"}
                     ]
                     "@graph" :
-                      - local_identifier: xxx
+                      - local_identifier: prd-c66c6-38be-4d5f-85db-d44c9f869333
                         entity_type: product
                         product_type: literature
                         titles :
@@ -116,11 +116,11 @@ paths:
                               identifiers:
                               - value: "0000-0001-6960-357X"
                                 scheme: "orcid"
-                              local_identifier: "614a6575-5d6c-416c-a8e1-f49a5d589bf8"
+                              local_identifier: "otf___1730027051396___person-1"
                               entity_type: "person"
                             declared_affiliations:
                               - name: "Center for Plant Biotechnology and Genomics, Universidad Politécnica de Madrid, Madrid, 28223, Spain"
-                                local_identifier: "32bc66c6-38be-4d5f-85db-d44c9f86921f"
+                                local_identifier: "otf___1730027051396___person-1-aff-1"
                                 entity_type: "organisation"
                                 country: "ES"
                         manifestations:
@@ -131,7 +131,7 @@ paths:
                               class: http://www.example.com/types/onto/localtypemethodology
                             biblio:
                               hosting_data_source:
-                                local_identifier: 6f368a3a-b1cf-498f-b2de-27135d1e0075
+                                local_identifier: arch-6f368a3a-b1cf-498f-b2de-27135d1e0075
                                 entity_type: datasource
                                 name: "An Archive"
                               in:
@@ -140,7 +140,7 @@ paths:
                                 identifiers:
                                   - "value": "2052-4463"
                                     "scheme": "issn"
-                                local_identifier: "51f46bc1-00f8-42dd-8221-ac4deb52fb25"
+                                local_identifier: "journal-46bc1-00f8-42dd-8221-ac4deb52fb25"
                                 entity_type: "venue"
                             dates: # http://api.crossref.org/works/10.1038/sdata.2016.18
                               publication:
@@ -162,7 +162,7 @@ paths:
                       {"@base" : "http://example.com/"}
                     ]
                     "@graph" :
-                      - local_identifier: yyy
+                      - local_identifier: prd-c66c6-38be-4d5f-85db-d44c9f869555
                         entity_type: product
                         product_type: research data
                         titles :
@@ -279,10 +279,10 @@ paths:
                         page: 1
                         page_size: 10
                       results:
-                        - local_identifier: xxx
+                        - local_identifier: prd-c66c6-38be-4d5f-85db-d44c9f869333
                           entity_type: product
                           product_type: literature
-                        - local_identifier: yyy
+                        - local_identifier: prd-c66c6-38be-4d5f-85db-d44c9f869999
                           entity_type: product
                           product_type: research data
                 DatasetListEx02:
@@ -293,10 +293,10 @@ paths:
                         page: 1
                         page_size: 10
                       results:
-                        - local_identifier: aaa
+                        - local_identifier: prd-c66c6-38be-4d5f-85db-d44c9f869888
                           entity_type: product
                           product_type: research data
-                        - local_identifier: bbb
+                        - local_identifier: prd-c66c6-38be-4d5f-85db-d44c9f869881
                           entity_type: product
                           product_type: research data
         '422':
@@ -350,7 +350,7 @@ paths:
                       {"@base" : "http://example.com/"}
                     ]
                     "@graph" :
-                      - local_identifier: xxx
+                      - local_identifier: pers-c66c6-38be-4d5f-85db-d44c9f869333
                         entity_type: "person"
                         identifiers:
                           - scheme: orcid
@@ -376,7 +376,7 @@ paths:
           | given_name | `given_name:Josiah` |
           | family_name |  `family_name:Carberry` |
           | name |  `name:Josiah Carberro` |
-          | affiliations.affiliation.local_identifier | `affiliations.affiliation.local_identifier:xxx` |
+          | affiliations.affiliation.local_identifier | `affiliations.affiliation.local_identifier:pers_1` |
           | affiliations.affiliation.name | `affiliations.affiliation.name:Brown University` |
           | affiliations.affiliation.short_name |  `affiliations.affiliation.short_name:BU` |
           | affiliations.role | `affiliations.role:affiliate` |
@@ -435,7 +435,7 @@ paths:
                         page: 1
                         page_size: 10
                       results:
-                        - local_identifier: xxx
+                        - local_identifier: pers-c66c6-38be-4d5f-85db-d44c9f869333
                           entity_type: "person"
                           identifiers:
                             - scheme: orcid
@@ -443,7 +443,7 @@ paths:
                           given_name: "Josiah"
                           family_name:  "Carberry"
                           name: "Josiah Carberry"
-                        - local_identifier: yyy
+                        - local_identifier: pers-c66c6-38be-4d5f-85db-d44c9f869888
                           entity_type: "person"
                           given_name: "Botul"
                           family_name:  "Jean-Baptiste"
@@ -484,6 +484,69 @@ paths:
                         maxItems: 1
                         items:
                           $ref: "#/components/schemas/Organisation"
+              examples:
+                OrgBrownUniversity:
+                  summary: "Brown University"
+                  value :
+                    "@context":
+                      - "https://w3id.org/skg-if/context/1.0.1/skg-if.json"
+                      - "@base" : "https://w3id.org/skg-if/sandbox/myprov/"
+                    "@graph":
+                      - local_identifier: 'otf_session12324_org_1124'
+                        entity_type: 'organisation'
+                        identifiers:
+                          - scheme: ror
+                            value: https://ror.org/05gq02987
+                        name: Brown University.
+                        short_name: BU
+                        country: US
+                        types:
+                          - education
+                OrgJohnCarterBrownLibrary:
+                  summary: "John Carter Brown Library"
+                  value :
+                    "@context":
+                      - "https://w3id.org/skg-if/context/1.0.1/skg-if.json"
+                      - "@base" : "https://w3id.org/skg-if/sandbox/myprov/"
+                    "@graph":
+                      - local_identifier: 'otf_session12325_org_1125'
+                        entity_type: 'organisation'
+                        identifiers:
+                          - scheme: ror
+                            value: https://ror.org/05gq02987
+                          - scheme: ror
+                            value: https://ror.org/0274ane14
+                        name: John Carter Brown Library, Brown University, Providence RI, US
+                        short_name: BU
+                        country: US
+                        types:
+                          - archive
+                OrgLabScienceNoId:
+                  summary: "Lab of science"
+                  value :
+                    "@context":
+                      - "https://w3id.org/skg-if/context/1.0.1/skg-if.json"
+                      - "@base" : "https://w3id.org/skg-if/sandbox/myprov/"
+                    "@graph":
+                      - local_identifier: 'otf_session12325_org_1126'
+                        entity_type: 'organisation'
+                        name: Lab of science, unknown University, Antarctica
+                OrgEuropeanCommission:
+                  summary: "European Commission"
+                  value :
+                    "@context":
+                      - "https://w3id.org/skg-if/context/1.0.1/skg-if.json"
+                      - "@base" : "https://w3id.org/skg-if/sandbox/myprov/"
+                    "@graph":
+                      - local_identifier: 'otf_session12324_org_1127'
+                        entity_type: 'organisation'
+                        identifiers:
+                          - scheme: ror
+                            value: https://ror.org/00k4n6c32
+                        name: "European Commission"
+                        short_name: EU
+                        types:
+                          - funder
   '/organisations':
     get:
       tags:
@@ -576,6 +639,76 @@ paths:
                         maxItems: 1
                         items:
                           $ref: "#/components/schemas/Grant"
+              examples:
+                GrantEx01:
+                  summary: a single grant
+                  value :
+                    "@context": [
+                      "https://w3id.org/skg-if/context/1.0.1/skg-if.json",
+                      {"@base" : "http://example.com/"}
+                    ]
+                    "@graph" :
+                      - local_identifier: grant-c66c6-38be-4d5f-85db-d44c9f869333
+                        entity_type: "grant"
+                        identifiers:
+                          - scheme: "doi"
+                            value: "https://doi.org/10.3030/101095129"
+                        grant_number: "101095129"
+                        titles:
+                          "en": "GraspOS: next Generation Research Assessment to Promote Open Science"
+                        abstracts: {
+                            "en": "GraspOS aims to build and operate a data infrastructure to support the policy reforms..."
+                        }
+                        acronym: "GraspOS"
+                        funding_agency:
+                          local_identifier: "otf___1730027051396___org-1"
+                          entity_type: "organisation"
+                          identifiers:
+                            - scheme: "ror"
+                              value: "https://ror.org/05gq02987"
+                          name: "Brown University"
+                          short_name: "BU"
+                          country: "US"
+                          website: "https://www.brown.edu/"
+                        funding_stream: "Horizon Europe"
+                        currency: "EUR"
+                        funded_amount: 50000
+                        duration:
+                          start: "2023-01-01T00:00:00Z"
+                          end: "2025-12-31T23:59:59Z"
+                        website: "https://graspos.eu"
+                        beneficiaries:
+                          - local_identifier: "otf___1730027051396___org-2"
+                            entity_type: "organisation"
+                            identifiers:
+                              - scheme: "ror"
+                                value: "https://ror.org/05gq02987"
+                            name: "Brown University"
+                            short_name: "BU"
+                            country: "US"
+                            website: "https://www.brown.edu/"
+                        contributions:
+                          - by:
+                              local_identifier: "otf___1730027051396___pers-1"
+                              entity_type: "person"
+                              identifiers:
+                                - scheme: "orcid"
+                                  value: "0000-0002-1825-0097"
+                              given_name: "Josiah"
+                              family_name: "Carberry"
+                              name: "Josiah Carberro"
+                              declared_affiliations:
+                                - local_identifier": "otf___1730027051396___org-2"
+                                  entity_type": "organisation"
+                                  identifiers:
+                                    - scheme: "ror"
+                                      value: "https://ror.org/05gq02987"
+                                  name: "Brown University"
+                                  short_name: "BU"
+                                  country: "US"
+                                  website: "https://www.brown.edu/"
+                              roles:
+                                - "co-applicant"
   '/grants':
     get:
       tags:
@@ -658,7 +791,7 @@ paths:
           examples : # note example with parameter $ref. OK on Redoc, KO on stoplight
             grant_title_ex :
               value: cf.search.title:GraspOS
-              summary: Get all grant with title containing `GraspOS`
+              summary: Get all grants with title containing `GraspOS`
         - $ref : '#/components/parameters/pageQueryParam'
         - $ref : '#/components/parameters/pageSizeQueryParam'
       responses:
@@ -704,6 +837,23 @@ paths:
                         maxItems: 1
                         items:
                           $ref: "#/components/schemas/Venue"
+              examples:
+                VenueEx01:
+                  summary: a single venue
+                  value :
+                    "@context": [
+                      "https://w3id.org/skg-if/context/1.0.1/skg-if.json",
+                      {"@base" : "http://example.com/"}
+                    ]
+                    "@graph" :
+                      - local_identifier: venue-c66c6-38be-4d5f-85db-d44c9f869333
+                        entity_type: "venue"
+                        identifiers:
+                          - scheme: issn
+                            value: 0264-3561
+                        name: Journal of Psychoceramics
+                        acronym: JPC
+                        type: journal
   '/venues':
     get:
       tags:
@@ -732,7 +882,17 @@ paths:
           | cf.search.name | a string | `venue` with name containing the filter value | `cf.search.name:Psychoceramics` |
 
       parameters:
-        - $ref : '#/components/parameters/filterQueryParam' #FIXME replace to add examples
+        - name: filter
+          in: query
+          description: |
+                Search filter. Format : Coma separated key:value elements ( key1:value1,key2:value2,key3:value3 ). Server side operator used is _AND_.
+          schema:
+            type: string
+            pattern: '^(,?.+:.+)*$'
+          examples : # note example with parameter $ref. OK on Redoc, KO on stoplight
+            topic_label_ex:
+              value: cf.search.name:Psychoceramics
+              summary: Get all venues with name containing 'Psychoceramics'
         - $ref : '#/components/parameters/pageQueryParam'
         - $ref : '#/components/parameters/pageSizeQueryParam'
       responses:
@@ -778,6 +938,23 @@ paths:
                         maxItems: 1
                         items:
                          $ref: "#/components/schemas/Topic"
+              examples:
+                TopicEx01:
+                  summary: a single topic
+                  value :
+                    "@context": [
+                      "https://w3id.org/skg-if/context/1.0.1/skg-if.json",
+                      {"@base" : "http://example.com/"}
+                    ]
+                    "@graph" :
+                      - local_identifier: topic-c66c6-38be-4d5f-85db-d44c9f869333
+                        entity_type: "topic"
+                        identifiers:
+                          - scheme: wikidata
+                            value: https://www.wikidata.org/wiki/Q21198
+                        labels:
+                          en: "Computer Science"
+                          it: "Informatica"
   '/topics':
     get:
       tags:
@@ -821,13 +998,13 @@ paths:
           examples : # note example with parameter $ref. OK on Redoc, KO on stoplight
             topic_label_ex:
               value: cf.search.labels:Solar
-              summary: Get all topic with label containing 'Solar'
+              summary: Get all topics with label containing 'Solar'
             topic_label_lang_ex:
               value: cf.search.labels:Solar,cf.search.language:en
-              summary: Get all topic with label containing 'Solar' and english
+              summary: Get all topics with label containing 'Solar' and english
             topic_label_vocab_ex:
               value: cf.search.labels:Solar,identifiers.scheme:myvocabulary
-              summary: Get all topic with label containing 'Solar' in the scheme 'myvocabulary'
+              summary: Get all topics with label containing 'Solar' in the scheme 'myvocabulary'
         - $ref : '#/components/parameters/pageQueryParam'
         - $ref : '#/components/parameters/pageSizeQueryParam'
       responses:
@@ -873,6 +1050,25 @@ paths:
                         maxItems: 1
                         items:
                           $ref: "#/components/schemas/DataSource"
+              examples:
+                DatasourceEx01:
+                  summary: a single datasource
+                  value :
+                    "@context": [
+                      "https://w3id.org/skg-if/context/1.0.1/skg-if.json",
+                      {"@base" : "http://example.com/"}
+                    ]
+                    "@graph" :
+                      - local_identifier: datasrc-c66c6-38be-4d5f-85db-d44c9f869333
+                        entity_type: "datasource"
+                        identifiers:
+                          - scheme: doi
+                            value: 10.25504/FAIRsharing.rkwr6y
+                        name: "Oxford University Research Archive"
+                        data_source_classification: "repository"
+                        research_product_types:
+                          - "research data"
+                          - "literature"
   '/datasources':
     get:
       tags:
@@ -901,7 +1097,17 @@ paths:
           | cf.search.name | a string | `datasource` with name containing the filter value | `cf.search.name:Management` |
 
       parameters:
-        - $ref : '#/components/parameters/filterQueryParam' #FIXME replace to add examples
+        - name: filter
+          in: query
+          description: |
+                Search filter. Format : Coma separated key:value elements ( key1:value1,key2:value2,key3:value3 ). Server side operator used is _AND_.
+          schema:
+            type: string
+            pattern: '^(,?.+:.+)*$'
+          examples : # note example with parameter $ref. OK on Redoc, KO on stoplight
+            datasource_name_ex:
+              value: cf.search.name:Oxford
+              summary: Get all datasources with name containing `Oxford`
         - $ref : '#/components/parameters/pageQueryParam'
         - $ref : '#/components/parameters/pageSizeQueryParam'
       responses:
@@ -944,14 +1150,14 @@ components:
       required: true
       schema:
         type: string
-    filterQueryParam:
-      name: filter
-      in: query
-      description: |
-            Search filter. Format : Coma separated key:value elements ( key1:value1,key2:value3,key:value3 ). Server side operator used is _AND_.
-      schema:
-        type: string
-        pattern: '^(,?.+:.+)*$'
+#    filterQueryParam: # filterQueryParam duplicated in each search endpoint ( only way to add distinct examples for each endpoint )
+#      name: filter
+#      in: query
+#      description: |
+#            Search filter. Format : Coma separated key:value elements ( key1:value1,key2:value3,key:value3 ). Server side operator used is _AND_.
+#      schema:
+#        type: string
+#        pattern: '^(,?.+:.+)*$'
     pageQueryParam:
       name: page
       in: query
@@ -1539,15 +1745,15 @@ components:
                   - research
                   - unspecified
       examples:
-        - local_identifier: 'otf_session12324_org_1124'
+        - local_identifiers: 'otf_session12324_org_1124'
           entity_type: 'organisation'
           identifiers:
-            - scheme: ror
-              value: https://ror.org/05gq02987
-          name: Brown University
+            - "scheme": ror
+              "value": https://ror.org/05gq02987
+          name: "Brown University"
           short_name: BU
           country: US
-          types:
+          types":
             - education
         - local_identifier: 'otf_session12325_org_1125'
           entity_type: 'organisation'
@@ -1561,9 +1767,18 @@ components:
           country: US
           types:
             - archive
-        - local_identifier: 'otf_session12325_org_1125'
+        - local_identifier: 'otf_session12325_org_1126'
           entity_type: 'organisation'
           name: Lab of science, unknown University, Antarctica
+        - local_identifier: 'otf_session12324_org_1127'
+          entity_type: 'organisation'
+          identifiers:
+            - scheme: ror
+              value: https://ror.org/00k4n6c32
+          name: "European Commission"
+          short_name: EU
+          types:
+            - funder
     Person:
       type: object
       title: "Person"
@@ -2043,6 +2258,8 @@ components:
                       fake : ['{{internet.url}}/datasource/{{random.alphaNumeric(8)}}']
             name:
               type: string
+              examples:
+                - "Oxford University Research Archive"
               x-faker:
                 fake : ['{{random.words(4)}} {{helpers.arrayElement(["Archive", "Repository", "Database"])}}']
     Entity:
