@@ -18,20 +18,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Create minimal event payload for manual dispatch
-        if: ${{ github.event_name == 'workflow_dispatch' }}
-        run: |
-          echo '{"pull_request": {}, "after": "${{ github.sha }}"}' > event.json
       - name: Run Spectral
         uses: stoplightio/spectral-action@latest
         with:
           file_glob: 'openapi/ver/**/skg-if-openapi.yaml'
           spectral_ruleset: .spectral.yaml
-        env:
-          GITHUB_EVENT_PATH: ${{ github.event_name == 'workflow_dispatch' && 'event.json' || github.event_path }}
 
       - if: ${{ failure() }}
-        run: exit()
+        run: exit 1
 
   validate_json_files:
     runs-on: ubuntu-latest
