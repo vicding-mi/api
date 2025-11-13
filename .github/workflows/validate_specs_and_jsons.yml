@@ -19,18 +19,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Create a more complete mock push event payload that closely mimics
-      # a real GitHub push event structure.
-      # This includes the 'after' field and omits the 'pull_request' field,
-      # as it's a push event.
-      - name: Create mock push event payload for workflow_dispatch
+      # Create a mock event file that mimics the PullRequestEvent structure
+      # required by the spectral-action's decoder.
+      # It needs 'repository', 'pull_request' (with 'head.sha'), and optionally 'after'.
+      - name: Create mock pull request event payload for workflow_dispatch
         if: ${{ github.event_name == 'workflow_dispatch' }}
         run: |
+          # Use the current commit SHA for pull_request.head.sha and potentially 'after'
+          # Repository details are pulled from the GitHub context.
           cat > mock_event.json <<EOF
           {
-            "ref": "${{ github.ref }}",
-            "before": "${{ github.sha }}", # Using current SHA as before might be a placeholder; real push has previous SHA
-            "after": "${{ github.sha }}",
             "repository": {
               "id": ${{ github.event.repository.id }},
               "node_id": "${{ github.event.repository.node_id }}",
@@ -39,7 +37,7 @@ jobs:
               "private": ${{ github.event.repository.private }},
               "owner": {
                 "name": "${{ github.event.repository.owner.login }}",
-                "email": null, # Owner email might not be available in event context easily
+                "email": null, # Owner email might not be available easily
                 "login": "${{ github.event.repository.owner.login }}",
                 "id": ${{ github.event.repository.owner.id }},
                 "node_id": "${{ github.event.repository.owner.node_id }}",
@@ -100,66 +98,26 @@ jobs:
               "releases_url": "${{ github.event.repository.releases_url }}",
               "deployments_url": "${{ github.event.repository.deployments_url }}"
             },
-            "pusher": {
-              "name": "${{ github.actor }}",
-              "email": null # Pusher email might not be available in event context easily
+            "pull_request": {
+              "head": {
+                "sha": "${{ github.sha }}" # This is the crucial field the decoder expects
+              }
+              # Add other minimal PR fields if necessary, but head.sha is key
+              # e.g., "base": { "sha": "..." }, "number": 1, "state": "open"
             },
-            "organization": {
-              "login": "${{ github.event.organization.login }}",
-              "id": ${{ github.event.organization.id }},
-              "node_id": "${{ github.event.organization.node_id }}",
-              "url": "https://api.github.com/orgs/${{ github.event.organization.login }}",
-              "repos_url": "https://api.github.com/orgs/${{ github.event.organization.login }}/repos",
-              "events_url": "https://api.github.com/orgs/${{ github.event.organization.login }}/events",
-              "hooks_url": "https://api.github.com/orgs/${{ github.event.organization.login }}/hooks",
-              "issues_url": "https://api.github.com/orgs/${{ github.event.organization.login }}/issues",
-              "members_url": "https://api.github.com/orgs/${{ github.event.organization.login }}/members{/member}",
-              "public_members_url": "https://api.github.com/orgs/${{ github.event.organization.login }}/public_members{/member}",
-              "avatar_url": "${{ github.event.organization.avatar_url }}",
-              "description": "${{ github.event.organization.description }}"
-            },
-            "sender": {
-              "login": "${{ github.actor }}",
-              "id": ${{ github.event.sender.id }},
-              "node_id": "${{ github.event.sender.node_id }}",
-              "avatar_url": "${{ github.event.sender.avatar_url }}",
-              "gravatar_id": "${{ github.event.sender.gravatar_id }}",
-              "url": "https://api.github.com/users/${{ github.actor }}",
-              "html_url": "https://github.com/${{ github.actor }}",
-              "followers_url": "https://api.github.com/users/${{ github.actor }}/followers",
-              "following_url": "https://api.github.com/users/${{ github.actor }}/following{/other_user}",
-              "gists_url": "https://api.github.com/users/${{ github.actor }}/gists{/gist_id}",
-              "starred_url": "https://api.github.com/users/${{ github.actor }}/starred{/owner}{/repo}",
-              "subscriptions_url": "https://api.github.com/users/${{ github.actor }}/subscriptions",
-              "organizations_url": "https://api.github.com/users/${{ github.actor }}/orgs",
-              "repos_url": "https://api.github.com/users/${{ github.actor }}/repos",
-              "events_url": "https://api.github.com/users/${{ github.actor }}/events{/privacy}",
-              "received_events_url": "https://api.github.com/users/${{ github.actor }}/received_events",
-              "type": "${{ github.event.sender.type }}",
-              "site_admin": ${{ github.event.sender.site_admin }}
-            },
-            "created": false,
-            "deleted": false,
-            "forced": false,
-            "base_ref": null,
-            "compare": "https://github.com/${{ github.repository }}/compare/${{ github.sha }}^...${{ github.sha }}", # Placeholder compare URL
-            "commits": [], # An empty commits array might be acceptable for a minimal mock
-            "head_commit": null
+            "after": "${{ github.sha }}" # Optional field according to the schema
           }
           EOF
-          echo "Created detailed mock_event.json for push event structure."
-          # Optionally print the first few lines: head -n 20 mock_event.json
+          echo "Created mock_event.json mimicking PullRequestEvent structure."
 
-      # Run Spectral, explicitly pointing GITHUB_EVENT_PATH to the detailed mock file.
-      # This file now mimics a push event much more closely.
-      - name: Run Spectral (Dispatch - Mock Push Event)
+      - name: Run Spectral (Dispatch - Mock Pull Request Event)
         if: ${{ github.event_name == 'workflow_dispatch' }}
         uses: stoplightio/spectral-action@latest
         with:
           file_glob: 'openapi/ver/**/skg-if-openapi.yaml'
           spectral_ruleset: .spectral.yaml
         env:
-          GITHUB_EVENT_PATH: mock_event.json # Point to the detailed mock file
+          GITHUB_EVENT_PATH: mock_event.json # Point to the PR-structured mock file
 
       - if: ${{ failure() }}
         run: exit 1
