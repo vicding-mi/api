@@ -22,6 +22,8 @@ jobs:
         run: |
           echo '{"pull_request": {}, "after": "${{ github.sha }}"}' > event.json
           echo "GITHUB_EVENT_PATH=$PWD/event.json" >> $GITHUB_ENV
+          github.event.pull_request = null
+          github.event.after = "${{ github.sha }}"
       - uses: actions/checkout@v4
       - name: Run Spectral
         uses: stoplightio/spectral-action@latest
