@@ -17,22 +17,11 @@ jobs:
     name: Validate YAML Files
 
     steps:
-      - name: Set default event context for manual runs
+      - name: Create minimal event payload for manual dispatch
+        if: ${{ github.event_name == 'workflow_dispatch' }}
         run: |
-          echo "GITHUB_EVENT_NAME=${{ github.event_name }}" >> $GITHUB_ENV
-          echo "GITHUB_SHA=${{ github.sha }}" >> $GITHUB_ENV
-          echo "GITHUB_REF=${{ github.ref }}" >> $GITHUB_ENV
-          echo "GITHUB_BASE_REF=${{ github.base_ref }}" >> $GITHUB_ENV
-          echo "GITHUB_HEAD_REF=${{ github.head_ref }}" >> $GITHUB_ENV
-          echo "GITHUB_EVENT_PATH=${{ github.event_path }}" >> $GITHUB_ENV
-          echo "GITHUB_REPOSITORY=${{ github.repository }}" >> $GITHUB_ENV
-          echo "GITHUB_ACTOR=${{ github.actor }}" >> $GITHUB_ENV
-          echo "GITHUB_WORKFLOW=${{ github.workflow }}" >> $GITHUB_ENV
-          echo "GITHUB_RUN_ID=${{ github.run_id }}" >> $GITHUB_ENV
-          echo "GITHUB_RUN_NUMBER=${{ github.run_number }}" >> $GITHUB_ENV
-          echo "GITHUB_REPOSITORY_OWNER=${{ github.repository_owner }}" >> $GITHUB_ENV
-          echo "GITHUB_EVENT_NAME=${{ github.event_name }}" >> $GITHUB_ENV
-          echo "GITHUB_EVENT_PATH=${{ github.event_path }}" >> $GITHUB_ENV
+          echo '{"pull_request": {}, "after": "${{ github.sha }}"}' > event.json
+          echo "GITHUB_EVENT_PATH=$PWD/event.json" >> $GITHUB_ENV
       - uses: actions/checkout@v4
       - name: Run Spectral
         uses: stoplightio/spectral-action@latest
