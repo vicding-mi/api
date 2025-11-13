@@ -18,11 +18,22 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - name: Create mock push event payload for workflow_dispatch
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        run: |
+          echo '{
+            "after": "${{ github.sha }}",
+            "pull_request": {}
+          }' > mock_event.json
+          echo "Created mock_event.json:"
+          cat mock_event.json
       - name: Run Spectral
         uses: stoplightio/spectral-action@latest
         with:
           file_glob: 'openapi/ver/**/skg-if-openapi.yaml'
           spectral_ruleset: .spectral.yaml
+        env:
+          GITHUB_EVENT_PATH: mock_event.json # Point to the mock file
 
       - if: ${{ failure() }}
         run: exit 1
