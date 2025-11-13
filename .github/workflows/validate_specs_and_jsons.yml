@@ -18,22 +18,148 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      # Create a more complete mock push event payload that closely mimics
+      # a real GitHub push event structure.
+      # This includes the 'after' field and omits the 'pull_request' field,
+      # as it's a push event.
       - name: Create mock push event payload for workflow_dispatch
         if: ${{ github.event_name == 'workflow_dispatch' }}
         run: |
-          echo '{
+          cat > mock_event.json <<EOF
+          {
+            "ref": "${{ github.ref }}",
+            "before": "${{ github.sha }}", # Using current SHA as before might be a placeholder; real push has previous SHA
             "after": "${{ github.sha }}",
-            "pull_request": {}
-          }' > mock_event.json
-          echo "Created mock_event.json:"
-          cat mock_event.json
-      - name: Run Spectral
+            "repository": {
+              "id": ${{ github.event.repository.id }},
+              "node_id": "${{ github.event.repository.node_id }}",
+              "name": "${{ github.event.repository.name }}",
+              "full_name": "${{ github.repository }}",
+              "private": ${{ github.event.repository.private }},
+              "owner": {
+                "name": "${{ github.event.repository.owner.login }}",
+                "email": null, # Owner email might not be available in event context easily
+                "login": "${{ github.event.repository.owner.login }}",
+                "id": ${{ github.event.repository.owner.id }},
+                "node_id": "${{ github.event.repository.owner.node_id }}",
+                "avatar_url": "${{ github.event.repository.owner.avatar_url }}",
+                "gravatar_id": "${{ github.event.repository.owner.gravatar_id }}",
+                "url": "https://api.github.com/users/${{ github.event.repository.owner.login }}",
+                "html_url": "https://github.com/${{ github.event.repository.owner.login }}",
+                "followers_url": "https://api.github.com/users/${{ github.event.repository.owner.login }}/followers",
+                "following_url": "https://api.github.com/users/${{ github.event.repository.owner.login }}/following{/other_user}",
+                "gists_url": "https://api.github.com/users/${{ github.event.repository.owner.login }}/gists{/gist_id}",
+                "starred_url": "https://api.github.com/users/${{ github.event.repository.owner.login }}/starred{/owner}{/repo}",
+                "subscriptions_url": "https://api.github.com/users/${{ github.event.repository.owner.login }}/subscriptions",
+                "organizations_url": "https://api.github.com/users/${{ github.event.repository.owner.login }}/orgs",
+                "repos_url": "https://api.github.com/users/${{ github.event.repository.owner.login }}/repos",
+                "events_url": "https://api.github.com/users/${{ github.event.repository.owner.login }}/events{/privacy}",
+                "received_events_url": "https://api.github.com/users/${{ github.event.repository.owner.login }}/received_events",
+                "type": "${{ github.event.repository.owner.type }}",
+                "site_admin": ${{ github.event.repository.owner.site_admin }}
+              },
+              "html_url": "${{ github.event.repository.html_url }}",
+              "description": "${{ github.event.repository.description }}",
+              "fork": ${{ github.event.repository.fork }},
+              "url": "${{ github.event.repository.url }}",
+              "forks_url": "${{ github.event.repository.forks_url }}",
+              "keys_url": "${{ github.event.repository.keys_url }}",
+              "collaborators_url": "${{ github.event.repository.collaborators_url }}",
+              "teams_url": "${{ github.event.repository.teams_url }}",
+              "hooks_url": "${{ github.event.repository.hooks_url }}",
+              "issue_events_url": "${{ github.event.repository.issue_events_url }}",
+              "events_url": "${{ github.event.repository.events_url }}",
+              "assignees_url": "${{ github.event.repository.assignees_url }}",
+              "branches_url": "${{ github.event.repository.branches_url }}",
+              "tags_url": "${{ github.event.repository.tags_url }}",
+              "blobs_url": "${{ github.event.repository.blobs_url }}",
+              "git_tags_url": "${{ github.event.repository.git_tags_url }}",
+              "git_refs_url": "${{ github.event.repository.git_refs_url }}",
+              "trees_url": "${{ github.event.repository.trees_url }}",
+              "statuses_url": "${{ github.event.repository.statuses_url }}",
+              "languages_url": "${{ github.event.repository.languages_url }}",
+              "stargazers_url": "${{ github.event.repository.stargazers_url }}",
+              "contributors_url": "${{ github.event.repository.contributors_url }}",
+              "subscribers_url": "${{ github.event.repository.subscribers_url }}",
+              "subscription_url": "${{ github.event.repository.subscription_url }}",
+              "commits_url": "${{ github.event.repository.commits_url }}",
+              "git_commits_url": "${{ github.event.repository.git_commits_url }}",
+              "comments_url": "${{ github.event.repository.comments_url }}",
+              "issue_comment_url": "${{ github.event.repository.issue_comment_url }}",
+              "contents_url": "${{ github.event.repository.contents_url }}",
+              "compare_url": "${{ github.event.repository.compare_url }}",
+              "merges_url": "${{ github.event.repository.merges_url }}",
+              "archive_url": "${{ github.event.repository.archive_url }}",
+              "downloads_url": "${{ github.event.repository.downloads_url }}",
+              "issues_url": "${{ github.event.repository.issues_url }}",
+              "pulls_url": "${{ github.event.repository.pulls_url }}",
+              "milestones_url": "${{ github.event.repository.milestones_url }}",
+              "notifications_url": "${{ github.event.repository.notifications_url }}",
+              "labels_url": "${{ github.event.repository.labels_url }}",
+              "releases_url": "${{ github.event.repository.releases_url }}",
+              "deployments_url": "${{ github.event.repository.deployments_url }}"
+            },
+            "pusher": {
+              "name": "${{ github.actor }}",
+              "email": null # Pusher email might not be available in event context easily
+            },
+            "organization": {
+              "login": "${{ github.event.organization.login }}",
+              "id": ${{ github.event.organization.id }},
+              "node_id": "${{ github.event.organization.node_id }}",
+              "url": "https://api.github.com/orgs/${{ github.event.organization.login }}",
+              "repos_url": "https://api.github.com/orgs/${{ github.event.organization.login }}/repos",
+              "events_url": "https://api.github.com/orgs/${{ github.event.organization.login }}/events",
+              "hooks_url": "https://api.github.com/orgs/${{ github.event.organization.login }}/hooks",
+              "issues_url": "https://api.github.com/orgs/${{ github.event.organization.login }}/issues",
+              "members_url": "https://api.github.com/orgs/${{ github.event.organization.login }}/members{/member}",
+              "public_members_url": "https://api.github.com/orgs/${{ github.event.organization.login }}/public_members{/member}",
+              "avatar_url": "${{ github.event.organization.avatar_url }}",
+              "description": "${{ github.event.organization.description }}"
+            },
+            "sender": {
+              "login": "${{ github.actor }}",
+              "id": ${{ github.event.sender.id }},
+              "node_id": "${{ github.event.sender.node_id }}",
+              "avatar_url": "${{ github.event.sender.avatar_url }}",
+              "gravatar_id": "${{ github.event.sender.gravatar_id }}",
+              "url": "https://api.github.com/users/${{ github.actor }}",
+              "html_url": "https://github.com/${{ github.actor }}",
+              "followers_url": "https://api.github.com/users/${{ github.actor }}/followers",
+              "following_url": "https://api.github.com/users/${{ github.actor }}/following{/other_user}",
+              "gists_url": "https://api.github.com/users/${{ github.actor }}/gists{/gist_id}",
+              "starred_url": "https://api.github.com/users/${{ github.actor }}/starred{/owner}{/repo}",
+              "subscriptions_url": "https://api.github.com/users/${{ github.actor }}/subscriptions",
+              "organizations_url": "https://api.github.com/users/${{ github.actor }}/orgs",
+              "repos_url": "https://api.github.com/users/${{ github.actor }}/repos",
+              "events_url": "https://api.github.com/users/${{ github.actor }}/events{/privacy}",
+              "received_events_url": "https://api.github.com/users/${{ github.actor }}/received_events",
+              "type": "${{ github.event.sender.type }}",
+              "site_admin": ${{ github.event.sender.site_admin }}
+            },
+            "created": false,
+            "deleted": false,
+            "forced": false,
+            "base_ref": null,
+            "compare": "https://github.com/${{ github.repository }}/compare/${{ github.sha }}^...${{ github.sha }}", # Placeholder compare URL
+            "commits": [], # An empty commits array might be acceptable for a minimal mock
+            "head_commit": null
+          }
+          EOF
+          echo "Created detailed mock_event.json for push event structure."
+          # Optionally print the first few lines: head -n 20 mock_event.json
+
+      # Run Spectral, explicitly pointing GITHUB_EVENT_PATH to the detailed mock file.
+      # This file now mimics a push event much more closely.
+      - name: Run Spectral (Dispatch - Mock Push Event)
+        if: ${{ github.event_name == 'workflow_dispatch' }}
         uses: stoplightio/spectral-action@latest
         with:
           file_glob: 'openapi/ver/**/skg-if-openapi.yaml'
           spectral_ruleset: .spectral.yaml
         env:
-          GITHUB_EVENT_PATH: mock_event.json # Point to the mock file
+          GITHUB_EVENT_PATH: mock_event.json # Point to the detailed mock file
 
       - if: ${{ failure() }}
         run: exit 1
@@ -61,11 +187,11 @@ jobs:
 
       - name: Get changed files for push
         run: |
-          CHANGED_FILES=$(git diff --name-only HEAD^ HEAD | tr '\n' ' ')
-          echo "CHANGED_FILES=$CHANGED_FILES" >> $GITHUB_ENV
-          echo "Changed files: $CHANGED_FILES"
+          LISTED_FILES=$(find openapi/ver/ -name "*.json" -type f -print0 | xargs -0 -r echo)
+          echo "CHANGED_FILES=$LISTED_FILES" >> $GITHUB_ENV
+          echo "All JSON files in openapi/ver/: $LISTED_FILES"
 
       - name: Validate changed files
         run: |
-          echo "Validating changed files..."
+          echo "Validating files..."
           python .github/scripts/validate_files.py
