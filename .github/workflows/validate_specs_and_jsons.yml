@@ -2,6 +2,7 @@ name: Validate SKG-IF Specs and JSON Files
 
 on:
   workflow_dispatch:
+
   push:
     paths:
       - 'openapi/ver/**/*.json'
