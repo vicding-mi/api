@@ -1982,7 +1982,7 @@ components:
                   - research
                   - unspecified
       examples:
-        - local_identifiers: 'otf_session12324_org_1124'
+        - local_identifier: 'otf_session12324_org_1124'
           entity_type: 'organisation'
           identifiers:
             - "scheme": ror
@@ -1990,7 +1990,7 @@ components:
           name: "Brown University"
           short_name: BU
           country: US
-          types":
+          types:
             - education
         - local_identifier: http://example.com/skg-if/api/organisations/otf_session12325_org_1125
           entity_type: 'organisation'
