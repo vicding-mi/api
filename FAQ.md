@@ -5,6 +5,6 @@ layout: default
 nav_order: 2
 ---
 
-# APIs FAQs
+# FAQs: APIs
 
 Todo
